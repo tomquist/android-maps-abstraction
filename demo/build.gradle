@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "de.quist.app.mapsabstraction.example"
+        applicationId "de.quist.app.maps.example"
         minSdkVersion 11
         targetSdkVersion 21
         versionCode 1
@@ -19,13 +19,13 @@ android {
 
     productFlavors {
         play {
-            applicationId "de.quist.app.mapsabstraction.example.play"
-            buildConfigField "de.quist.app.mapsabstraction.MapImplementation", "MAP_IMPLEMENTATION", "de.quist.app.mapsabstraction.googlemapswrapper.GoogleMapImplementation.INSTANCE"
+            applicationId "de.quist.app.maps.example.play"
+            buildConfigField "de.quist.app.maps.MapsBinding", "MAP_BINDING", "de.quist.app.maps.google.GoogleMapsBinding.INSTANCE"
         }
         amazon {
-            applicationId "de.quist.app.mapsabstraction.example.amazon"
+            applicationId "de.quist.app.maps.example.amazon"
             minSdkVersion 15
-            buildConfigField "de.quist.app.mapsabstraction.MapImplementation", "MAP_IMPLEMENTATION", "de.quist.app.mapsabstraction.amazonmapswrapper.AmazonMapImplementation.INSTANCE"
+            buildConfigField "de.quist.app.maps.MapsBinding", "MAP_BINDING", "de.quist.app.maps.amazon.AmazonMapsBinding.INSTANCE"
         }
     }
 }

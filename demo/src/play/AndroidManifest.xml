@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.quist.app.mapsabstraction.example">
+    package="de.quist.app.maps.example">
 
     <application>
         <meta-data android:name="com.google.android.maps.v2.API_KEY"
