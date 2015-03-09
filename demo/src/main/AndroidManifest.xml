@@ -1,0 +1,84 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.quist.app.mapsabstraction.example">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/demo_title"
+        android:hardwareAccelerated="true">
+
+        <activity android:name="de.quist.app.mapsabstraction.example.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.BasicMapDemoActivity"
+            android:label="@string/basic_map_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.CameraDemoActivity"
+            android:label="@string/camera_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.CircleDemoActivity"
+            android:label="@string/circle_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.EventsDemoActivity"
+            android:label="@string/events_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.GroundOverlayDemoActivity"
+            android:label="@string/ground_overlay_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.IndoorDemoActivity"
+            android:label="@string/indoor_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.LayersDemoActivity"
+            android:label="@string/layers_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.LocationSourceDemoActivity"
+            android:label="@string/location_source_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.MapInPagerDemoActivity"
+            android:label="@string/map_in_pager_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.MarkerDemoActivity"
+            android:label="@string/marker_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.MultiMapDemoActivity"
+            android:label="@string/multi_map_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.OptionsDemoActivity"
+            android:label="@string/options_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.PolygonDemoActivity"
+            android:label="@string/polygon_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.PolylineDemoActivity"
+            android:label="@string/polyline_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.ProgrammaticDemoActivity"
+            android:label="@string/programmatic_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.RawMapViewDemoActivity"
+            android:label="@string/raw_map_view_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.SnapshotDemoActivity"
+            android:label="@string/snapshot_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.TileCoordinateDemoActivity"
+            android:label="@string/tile_coordinate_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.TileOverlayDemoActivity"
+            android:label="@string/tile_overlay_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.UiSettingsDemoActivity"
+            android:label="@string/ui_settings_demo_label"/>
+        <activity
+            android:name="de.quist.app.mapsabstraction.example.VisibleRegionDemoActivity"
+            android:label="@string/visible_region_demo_label"/>
+    </application>
+
+
+</manifest>

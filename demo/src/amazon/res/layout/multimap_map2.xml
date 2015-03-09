@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    class="com.amazon.geo.mapsv2.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    map:amzn_cameraTargetLat="35.69"
+    map:amzn_cameraTargetLng="139.69"
+    map:amzn_cameraZoom="8"/>
