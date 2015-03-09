@@ -51,13 +51,13 @@ This is the preferred approach and is implemented in the demo project. Create tw
 5. To create instances of ``MapFragment``, ``SupportMapFragment`` or ``MapVIew`` programmatically, use the ``newMapFragmentInstance()``, ``newSupportMapFragmentInstance()`` and ``newMapView()`` methods in ``MapBinding``.
 6. To access ``MapFragment`` or ``MapView`` methods, wrap the fragment or view into a ``MapFragmentWrapper`` or ``MapViewWrapper`` by calling ``mapFragmentWrapperFrom()`` or ``mapViewWrapperFrom()``.
 
-| Google Name                 | Abstraction Name                  |
-|:--------------------------- |:--------------------------------- |
-| com.google.android.gms.maps | de.quist.app.maps                 |
-| GoogleMap                   | Map                               |
-| new *Options()              | binding.*Options()               |
-| new LatLng()                | binding.latLng()                 |
-| *Factory.*()                | binding.*Factory().*             |
-| MapsFragment.newInstance()  | binding.newMapFragmentInstance() |
-| Tile.NO_TILE                | binding.noTile()                 |
-| *.builder()                 | binding.*Builder()               |
+| Google Name                     | Abstraction Name                      | Example                                                                            |
+|:------------------------------- |:------------------------------------- |:---------------------------------------------------------------------------------- |
+| ``com.google.android.gms.maps`` | ``de.quist.app.maps``                 | ``com.google.android.gms.maps.Projection`` &rarr; ``de.quist.app.maps.Projection`` |
+| ``GoogleMap``                   | ``Map``                               |                                                                                    |
+| ``new *Options()``              | ``binding.*Options()``                | ``new MarkerOptions()`` &rarr; ``binding.markerOptions()``                         |
+| ``new LatLng()``                | ``binding.latLng()``                  | ``new LatLng(53.55, 10.0)`` &rarr; ``binding.latLng(53.55, 10.)``                  |
+| ``*Factory.*()``                | ``binding.*Factory().*``              | ``CameraUpdateFactory.zoomIn()`` &rarr; ``binding.cameraUpdateFactory().zoomIn()`` |
+| ``MapsFragment.newInstance()``  | ``binding.newMapFragmentInstance()``  | ``MapsFragment.newInstance()`` &rarr; ``binding.newMapsFragmentInstance()``        |
+| ``Tile.NO_TILE``                | ``binding.noTile()``                  |                                                                                    |
+| ``*.builder()``                 | ``binding.*Builder()``                | ``CameraPosition.builder()`` &rarr; ``binding.cameraPositionBuilder()``            |
