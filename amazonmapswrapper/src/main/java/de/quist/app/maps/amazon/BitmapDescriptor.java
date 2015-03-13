@@ -1,39 +1,19 @@
 package de.quist.app.maps.amazon;
 
-class BitmapDescriptor implements de.quist.app.maps.model.BitmapDescriptor {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.amazon.geo.mapsv2.model.BitmapDescriptor unwrap(de.quist.app.maps.model.BitmapDescriptor bitmapDescriptor) {
-        return bitmapDescriptor != null ? ((BitmapDescriptor)bitmapDescriptor).original : null;
-    }
+class BitmapDescriptor extends Wrapper<com.amazon.geo.mapsv2.model.BitmapDescriptor> implements de.quist.app.maps.model.BitmapDescriptor {
 
-    static de.quist.app.maps.model.BitmapDescriptor wrap(com.amazon.geo.mapsv2.model.BitmapDescriptor bitmapDescriptor) {
-        return bitmapDescriptor != null ? new BitmapDescriptor(bitmapDescriptor) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.BitmapDescriptor, BitmapDescriptor, com.amazon.geo.mapsv2.model.BitmapDescriptor> MAPPER = new DefaultMapper<de.quist.app.maps.model.BitmapDescriptor, BitmapDescriptor, com.amazon.geo.mapsv2.model.BitmapDescriptor>() {
 
-    final com.amazon.geo.mapsv2.model.BitmapDescriptor original;
+        @Override
+        public BitmapDescriptor createWrapper(com.amazon.geo.mapsv2.model.BitmapDescriptor original) {
+            return original != null ? new BitmapDescriptor(original) : null;
+        }
+    };
 
     public BitmapDescriptor(com.amazon.geo.mapsv2.model.BitmapDescriptor original) {
-        this.original = original;
-    }
-
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof BitmapDescriptor)) {
-            return false;
-        }
-
-        BitmapDescriptor other = (BitmapDescriptor)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
+        super(original);
     }
 
 }

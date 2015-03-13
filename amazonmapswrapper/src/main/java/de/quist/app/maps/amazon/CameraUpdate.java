@@ -1,39 +1,20 @@
 package de.quist.app.maps.amazon;
 
 
-class CameraUpdate implements de.quist.app.maps.CameraUpdate {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.amazon.geo.mapsv2.CameraUpdate unwrap(de.quist.app.maps.CameraUpdate cameraUpdate) {
-        return cameraUpdate != null ? ((CameraUpdate)cameraUpdate).original : null;
-    }
+class CameraUpdate extends Wrapper<com.amazon.geo.mapsv2.CameraUpdate> implements de.quist.app.maps.CameraUpdate {
 
-    static de.quist.app.maps.CameraUpdate wrap(com.amazon.geo.mapsv2.CameraUpdate cameraUpdate) {
-        return cameraUpdate != null ? new CameraUpdate(cameraUpdate) : null;
-    }
+    static final Mapper<de.quist.app.maps.CameraUpdate, CameraUpdate, com.amazon.geo.mapsv2.CameraUpdate> MAPPER = new DefaultMapper<de.quist.app.maps.CameraUpdate, CameraUpdate, com.amazon.geo.mapsv2.CameraUpdate>() {
 
-    final com.amazon.geo.mapsv2.CameraUpdate original;
+        @Override
+        public CameraUpdate createWrapper(com.amazon.geo.mapsv2.CameraUpdate original) {
+            return original != null ? new CameraUpdate(original) : null;
+        }
+    };
 
     private CameraUpdate(com.amazon.geo.mapsv2.CameraUpdate cameraUpdate) {
-        this.original = cameraUpdate;
+        super(cameraUpdate);
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof CameraUpdate)) {
-            return false;
-        }
-
-        CameraUpdate other = (CameraUpdate)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

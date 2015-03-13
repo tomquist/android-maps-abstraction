@@ -1,44 +1,24 @@
 package de.quist.app.maps.amazon;
 
-class TileProvider implements de.quist.app.maps.model.TileProvider {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.amazon.geo.mapsv2.model.TileProvider unwrap(de.quist.app.maps.model.TileProvider tileProvider) {
-        return tileProvider != null ? ((TileProvider)tileProvider).original : null;
-    }
+class TileProvider extends Wrapper<com.amazon.geo.mapsv2.model.TileProvider> implements de.quist.app.maps.model.TileProvider {
 
-    static de.quist.app.maps.model.TileProvider wrap(com.amazon.geo.mapsv2.model.TileProvider tileProvider) {
-        return tileProvider != null ? new TileProvider(tileProvider) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.TileProvider, TileProvider, com.amazon.geo.mapsv2.model.TileProvider> MAPPER = new DefaultMapper<de.quist.app.maps.model.TileProvider, TileProvider, com.amazon.geo.mapsv2.model.TileProvider>() {
 
-    final com.amazon.geo.mapsv2.model.TileProvider original;
+        @Override
+        public TileProvider createWrapper(com.amazon.geo.mapsv2.model.TileProvider original) {
+            return original != null ? new TileProvider(original) : null;
+        }
+    };
 
     private TileProvider(com.amazon.geo.mapsv2.model.TileProvider original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
     public de.quist.app.maps.model.Tile getTile(int x, int y, int zoom) {
-        return Tile.wrap(original.getTile(x, y, zoom));
-    }
-
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof TileProvider)) {
-            return false;
-        }
-
-        TileProvider other = (TileProvider)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
+        return Tile.MAPPER.wrap(original.getTile(x, y, zoom));
     }
 
 }

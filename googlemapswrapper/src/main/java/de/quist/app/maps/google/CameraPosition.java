@@ -1,27 +1,25 @@
 package de.quist.app.maps.google;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
-class CameraPosition implements de.quist.app.maps.model.CameraPosition {
+import de.quist.app.maps.utils.ParcelableWrapper;
 
-    static com.google.android.gms.maps.model.CameraPosition unwrap(de.quist.app.maps.model.CameraPosition cameraPosition) {
-        return cameraPosition != null ? ((CameraPosition)cameraPosition).original : null;
-    }
+class CameraPosition extends ParcelableWrapper<com.google.android.gms.maps.model.CameraPosition> implements de.quist.app.maps.model.CameraPosition {
 
-    static de.quist.app.maps.model.CameraPosition wrap(com.google.android.gms.maps.model.CameraPosition cameraPosition) {
-        return cameraPosition != null ? new CameraPosition(cameraPosition) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.CameraPosition, CameraPosition, com.google.android.gms.maps.model.CameraPosition> MAPPER = new DefaultMapper<de.quist.app.maps.model.CameraPosition, CameraPosition, com.google.android.gms.maps.model.CameraPosition>() {
 
-    final com.google.android.gms.maps.model.CameraPosition original;
-
+        @Override
+        public CameraPosition createWrapper(com.google.android.gms.maps.model.CameraPosition original) {
+            return original != null ? new CameraPosition(original) : null;
+        }
+    };
     private CameraPosition(com.google.android.gms.maps.model.CameraPosition original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
     public de.quist.app.maps.model.LatLng target() {
-        return LatLng.wrap(original.target);
+        return LatLng.MAPPER.wrap(original.target);
     }
 
     @Override
@@ -39,38 +37,8 @@ class CameraPosition implements de.quist.app.maps.model.CameraPosition {
         return original.bearing;
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof CameraPosition)) {
-            return false;
-        }
-
-        CameraPosition other = (CameraPosition)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
-
-    @Override
-    public int describeContents() {
-        return original.describeContents();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        original.writeToParcel(dest, flags);
-    }
-
-    public static final Parcelable.Creator<CameraPosition> CREATOR
-            = new Parcelable.Creator<CameraPosition>() {
+    public static final Creator<CameraPosition> CREATOR
+            = new Creator<CameraPosition>() {
         public CameraPosition createFromParcel(Parcel in) {
             return new CameraPosition(com.google.android.gms.maps.model.CameraPosition.CREATOR.da(in));
         }
@@ -89,7 +57,7 @@ class CameraPosition implements de.quist.app.maps.model.CameraPosition {
         }
 
         Builder(de.quist.app.maps.model.CameraPosition cameraPosition) {
-            this.builder = new com.google.android.gms.maps.model.CameraPosition.Builder(CameraPosition.unwrap(cameraPosition));
+            this.builder = new com.google.android.gms.maps.model.CameraPosition.Builder(CameraPosition.MAPPER.unwrap(cameraPosition));
         }
 
         private Builder(com.google.android.gms.maps.model.CameraPosition.Builder original) {
@@ -98,7 +66,7 @@ class CameraPosition implements de.quist.app.maps.model.CameraPosition {
 
         @Override
         public IBuilder target(de.quist.app.maps.model.LatLng location) {
-            com.google.android.gms.maps.model.CameraPosition.Builder retBuilder = builder.target(LatLng.unwrap(location));
+            com.google.android.gms.maps.model.CameraPosition.Builder retBuilder = builder.target(LatLng.MAPPER.unwrap(location));
             if (retBuilder == builder)
             {
                 return this;
@@ -138,7 +106,7 @@ class CameraPosition implements de.quist.app.maps.model.CameraPosition {
 
         @Override
         public de.quist.app.maps.model.CameraPosition build() {
-            return CameraPosition.wrap(builder.build());
+            return CameraPosition.MAPPER.wrap(builder.build());
         }
     }
 

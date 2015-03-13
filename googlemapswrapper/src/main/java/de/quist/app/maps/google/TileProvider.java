@@ -1,43 +1,24 @@
 package de.quist.app.maps.google;
 
-class TileProvider implements de.quist.app.maps.model.TileProvider {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.google.android.gms.maps.model.TileProvider unwrap(de.quist.app.maps.model.TileProvider tileProvider) {
-        return tileProvider != null ? ((TileProvider)tileProvider).original : null;
-    }
+class TileProvider extends Wrapper<com.google.android.gms.maps.model.TileProvider> implements de.quist.app.maps.model.TileProvider {
 
-    static de.quist.app.maps.model.TileProvider wrap(com.google.android.gms.maps.model.TileProvider tileProvider) {
-        return tileProvider != null ? new TileProvider(tileProvider) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.TileProvider, TileProvider, com.google.android.gms.maps.model.TileProvider> MAPPER = new DefaultMapper<de.quist.app.maps.model.TileProvider, TileProvider, com.google.android.gms.maps.model.TileProvider>() {
 
-    final com.google.android.gms.maps.model.TileProvider original;
+        @Override
+        public TileProvider createWrapper(com.google.android.gms.maps.model.TileProvider original) {
+            return original != null ? new TileProvider(original) : null;
+        }
+    };
 
     private TileProvider(com.google.android.gms.maps.model.TileProvider original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
     public de.quist.app.maps.model.Tile getTile(int x, int y, int zoom) {
-        return Tile.wrap(original.getTile(x, y, zoom));
+        return Tile.MAPPER.wrap(original.getTile(x, y, zoom));
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof TileProvider)) {
-            return false;
-        }
-
-        TileProvider other = (TileProvider)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

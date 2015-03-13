@@ -1,41 +1,40 @@
 package de.quist.app.maps.google;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
-class MarkerOptions implements de.quist.app.maps.model.MarkerOptions {
+import de.quist.app.maps.utils.ParcelableWrapper;
 
-    static com.google.android.gms.maps.model.MarkerOptions unwrap(de.quist.app.maps.model.MarkerOptions markerOptions) {
-        return markerOptions != null ? ((MarkerOptions)markerOptions).original : null;
-    }
+class MarkerOptions extends ParcelableWrapper<com.google.android.gms.maps.model.MarkerOptions> implements de.quist.app.maps.model.MarkerOptions {
 
-    static MarkerOptions wrap(com.google.android.gms.maps.model.MarkerOptions markerOptions) {
-        return markerOptions != null ? new MarkerOptions(markerOptions) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.MarkerOptions, MarkerOptions, com.google.android.gms.maps.model.MarkerOptions> MAPPER = new DefaultMapper<de.quist.app.maps.model.MarkerOptions, MarkerOptions, com.google.android.gms.maps.model.MarkerOptions>() {
 
-    final com.google.android.gms.maps.model.MarkerOptions original;
+        @Override
+        public MarkerOptions createWrapper(com.google.android.gms.maps.model.MarkerOptions original) {
+            return original != null ? new MarkerOptions(original) : null;
+        }
+    };
 
     private MarkerOptions(com.google.android.gms.maps.model.MarkerOptions original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
     public de.quist.app.maps.model.MarkerOptions position(de.quist.app.maps.model.LatLng position) {
-        com.google.android.gms.maps.model.MarkerOptions ret = original.position(LatLng.unwrap(position));
+        com.google.android.gms.maps.model.MarkerOptions ret = original.position(LatLng.MAPPER.unwrap(position));
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
     @Override
     public de.quist.app.maps.model.MarkerOptions icon(de.quist.app.maps.model.BitmapDescriptor icon) {
-        com.google.android.gms.maps.model.MarkerOptions ret = original.icon(BitmapDescriptor.unwrap(icon));
+        com.google.android.gms.maps.model.MarkerOptions ret = original.icon(BitmapDescriptor.MAPPER.unwrap(icon));
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -45,7 +44,7 @@ class MarkerOptions implements de.quist.app.maps.model.MarkerOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -55,7 +54,7 @@ class MarkerOptions implements de.quist.app.maps.model.MarkerOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -65,7 +64,7 @@ class MarkerOptions implements de.quist.app.maps.model.MarkerOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -75,7 +74,7 @@ class MarkerOptions implements de.quist.app.maps.model.MarkerOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -85,7 +84,7 @@ class MarkerOptions implements de.quist.app.maps.model.MarkerOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -95,7 +94,7 @@ class MarkerOptions implements de.quist.app.maps.model.MarkerOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -105,7 +104,7 @@ class MarkerOptions implements de.quist.app.maps.model.MarkerOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -115,7 +114,7 @@ class MarkerOptions implements de.quist.app.maps.model.MarkerOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -125,13 +124,13 @@ class MarkerOptions implements de.quist.app.maps.model.MarkerOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
     @Override
     public de.quist.app.maps.model.LatLng getPosition() {
-        return LatLng.wrap(original.getPosition());
+        return LatLng.MAPPER.wrap(original.getPosition());
     }
 
     @Override
@@ -146,7 +145,7 @@ class MarkerOptions implements de.quist.app.maps.model.MarkerOptions {
 
     @Override
     public de.quist.app.maps.model.BitmapDescriptor getIcon() {
-        return BitmapDescriptor.wrap(original.getIcon());
+        return BitmapDescriptor.MAPPER.wrap(original.getIcon());
     }
 
     @Override
@@ -194,40 +193,10 @@ class MarkerOptions implements de.quist.app.maps.model.MarkerOptions {
         return original.getAlpha();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof MarkerOptions)) {
-            return false;
-        }
-
-        MarkerOptions other = (MarkerOptions)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
-
-    @Override
-    public int describeContents() {
-        return original.describeContents();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        original.writeToParcel(dest, flags);
-    }
-
-    public static final Parcelable.Creator<MarkerOptions> CREATOR
-            = new Parcelable.Creator<MarkerOptions>() {
+    public static final Creator<MarkerOptions> CREATOR
+            = new Creator<MarkerOptions>() {
         public MarkerOptions createFromParcel(Parcel in) {
-            return MarkerOptions.wrap(com.google.android.gms.maps.model.MarkerOptions.CREATOR.df(in));
+            return MarkerOptions.MAPPER.wrap(com.google.android.gms.maps.model.MarkerOptions.CREATOR.df(in));
         }
 
         public MarkerOptions[] newArray(int size) {

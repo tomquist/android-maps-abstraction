@@ -6,21 +6,20 @@ import android.os.Parcelable;
 import com.amazon.geo.mapsv2.AmazonMapOptions;
 
 import de.quist.app.maps.model.CameraPosition;
+import de.quist.app.maps.utils.ParcelableWrapper;
 
-class MapOptions implements de.quist.app.maps.MapOptions {
+class MapOptions extends ParcelableWrapper<AmazonMapOptions> implements de.quist.app.maps.MapOptions {
 
-    static AmazonMapOptions unwrap(de.quist.app.maps.MapOptions mapOptions) {
-        return mapOptions != null ? ((MapOptions)mapOptions).original : null;
-    }
+    static final Mapper<de.quist.app.maps.MapOptions, MapOptions, AmazonMapOptions> MAPPER = new DefaultMapper<de.quist.app.maps.MapOptions, MapOptions, AmazonMapOptions>() {
 
-    static MapOptions wrap(AmazonMapOptions mapOptions) {
-        return mapOptions != null ? new MapOptions(mapOptions) : null;
-    }
-
-    final AmazonMapOptions original;
+        @Override
+        public MapOptions createWrapper(AmazonMapOptions original) {
+            return original != null ? new MapOptions(original) : null;
+        }
+    };
 
     private MapOptions(AmazonMapOptions original) {
-        this.original = original;
+        super(original);
     }
     
     @Override
@@ -29,7 +28,7 @@ class MapOptions implements de.quist.app.maps.MapOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -39,7 +38,7 @@ class MapOptions implements de.quist.app.maps.MapOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -49,17 +48,17 @@ class MapOptions implements de.quist.app.maps.MapOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
     @Override
     public de.quist.app.maps.MapOptions camera(CameraPosition camera) {
-        AmazonMapOptions ret = original.camera(de.quist.app.maps.amazon.CameraPosition.unwrap(camera));
+        AmazonMapOptions ret = original.camera(de.quist.app.maps.amazon.CameraPosition.MAPPER.unwrap(camera));
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -69,7 +68,7 @@ class MapOptions implements de.quist.app.maps.MapOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -79,7 +78,7 @@ class MapOptions implements de.quist.app.maps.MapOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -89,7 +88,7 @@ class MapOptions implements de.quist.app.maps.MapOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -99,7 +98,7 @@ class MapOptions implements de.quist.app.maps.MapOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -109,7 +108,7 @@ class MapOptions implements de.quist.app.maps.MapOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -119,7 +118,7 @@ class MapOptions implements de.quist.app.maps.MapOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -129,7 +128,7 @@ class MapOptions implements de.quist.app.maps.MapOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -139,7 +138,7 @@ class MapOptions implements de.quist.app.maps.MapOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -160,7 +159,7 @@ class MapOptions implements de.quist.app.maps.MapOptions {
 
     @Override
     public CameraPosition getCamera() {
-        return de.quist.app.maps.amazon.CameraPosition.wrap(original.getCamera());
+        return de.quist.app.maps.amazon.CameraPosition.MAPPER.wrap(original.getCamera());
     }
 
     @Override
@@ -203,40 +202,10 @@ class MapOptions implements de.quist.app.maps.MapOptions {
         return original.getMapToolbarEnabled();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof MapOptions)) {
-            return false;
-        }
-
-        MapOptions other = (MapOptions)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
-
-    @Override
-    public int describeContents() {
-        return original.describeContents();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        original.writeToParcel(dest, flags);
-    }
-
     public static final Parcelable.Creator<MapOptions> CREATOR
             = new Parcelable.Creator<MapOptions>() {
         public MapOptions createFromParcel(Parcel in) {
-            return MapOptions.wrap(AmazonMapOptions.CREATOR.createFromParcel(in));
+            return MapOptions.MAPPER.wrap(AmazonMapOptions.CREATOR.createFromParcel(in));
         }
 
         public MapOptions[] newArray(int size) {

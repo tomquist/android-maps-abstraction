@@ -1,19 +1,19 @@
 package de.quist.app.maps.amazon;
 
-class TileOverlay implements de.quist.app.maps.model.TileOverlay {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.amazon.geo.mapsv2.model.TileOverlay unwrap(de.quist.app.maps.model.TileOverlay tileOverlay) {
-        return tileOverlay != null ? ((TileOverlay)tileOverlay).original : null;
-    }
+class TileOverlay extends Wrapper<com.amazon.geo.mapsv2.model.TileOverlay> implements de.quist.app.maps.model.TileOverlay {
 
-    static de.quist.app.maps.model.TileOverlay wrap(com.amazon.geo.mapsv2.model.TileOverlay tileOverlay) {
-        return tileOverlay != null ? new TileOverlay(tileOverlay) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.TileOverlay, TileOverlay, com.amazon.geo.mapsv2.model.TileOverlay> MAPPER = new DefaultMapper<de.quist.app.maps.model.TileOverlay, TileOverlay, com.amazon.geo.mapsv2.model.TileOverlay>() {
 
-    final com.amazon.geo.mapsv2.model.TileOverlay original;
+        @Override
+        public TileOverlay createWrapper(com.amazon.geo.mapsv2.model.TileOverlay original) {
+            return original != null ? new TileOverlay(original) : null;
+        }
+    };
 
     private TileOverlay(com.amazon.geo.mapsv2.model.TileOverlay original) {
-        this.original = original;
+        super(original);
     }
     
     @Override
@@ -61,23 +61,4 @@ class TileOverlay implements de.quist.app.maps.model.TileOverlay {
         return original.getFadeIn();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof TileOverlay)) {
-            return false;
-        }
-
-        TileOverlay other = (TileOverlay)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

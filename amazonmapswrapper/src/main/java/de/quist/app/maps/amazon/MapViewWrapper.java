@@ -3,28 +3,29 @@ package de.quist.app.maps.amazon;
 import android.os.Bundle;
 import android.view.View;
 
+import com.amazon.geo.mapsv2.MapView;
+
 import de.quist.app.maps.Map;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.utils.Wrapper;
 
-class MapViewWrapper implements de.quist.app.maps.MapViewWrapper {
+class MapViewWrapper extends Wrapper<MapView> implements de.quist.app.maps.MapViewWrapper {
 
-    public static com.amazon.geo.mapsv2.MapView unwrap(de.quist.app.maps.MapViewWrapper map) {
-        return map != null ? ((de.quist.app.maps.amazon.MapViewWrapper)map).original : null;
-    }
+    static final Mapper<de.quist.app.maps.MapViewWrapper, MapViewWrapper, com.amazon.geo.mapsv2.MapView> MAPPER = new DefaultMapper<de.quist.app.maps.MapViewWrapper, MapViewWrapper, com.amazon.geo.mapsv2.MapView>() {
 
-    public static de.quist.app.maps.amazon.MapViewWrapper wrap(com.amazon.geo.mapsv2.MapView map) {
-        return map != null ? new de.quist.app.maps.amazon.MapViewWrapper(map) : null;
-    }
+        @Override
+        public MapViewWrapper createWrapper(MapView original) {
+            return original != null ? new MapViewWrapper(original) : null;
+        }
+    };
 
-    private final com.amazon.geo.mapsv2.MapView original;
-
-    MapViewWrapper(com.amazon.geo.mapsv2.MapView original) {
-        this.original = original;
+    private MapViewWrapper(com.amazon.geo.mapsv2.MapView original) {
+        super(original);
     }
 
     @Override
     public Map getMap() {
-        return AmazonMap.wrap(original.getMap());
+        return AmazonMap.MAPPER.wrap(original.getMap());
     }
 
     @Override
@@ -34,7 +35,7 @@ class MapViewWrapper implements de.quist.app.maps.MapViewWrapper {
             wrapperCallback = new com.amazon.geo.mapsv2.OnMapReadyCallback() {
                 @Override
                 public void onMapReady(com.amazon.geo.mapsv2.AmazonMap amazonMap) {
-                    callback.onMapReady(AmazonMap.wrap(amazonMap));
+                    callback.onMapReady(AmazonMap.MAPPER.wrap(amazonMap));
                 }
             };
         }

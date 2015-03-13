@@ -1,22 +1,21 @@
 package de.quist.app.maps.google;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
-class Tile implements de.quist.app.maps.model.Tile {
+import de.quist.app.maps.utils.ParcelableWrapper;
 
-    static com.google.android.gms.maps.model.Tile unwrap(de.quist.app.maps.model.Tile tile) {
-        return tile != null ? ((Tile)tile).original : null;
-    }
+class Tile extends ParcelableWrapper<com.google.android.gms.maps.model.Tile> implements de.quist.app.maps.model.Tile {
 
-    static Tile wrap(com.google.android.gms.maps.model.Tile tile) {
-        return tile != null ? new Tile(tile) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.Tile, Tile, com.google.android.gms.maps.model.Tile> MAPPER = new DefaultMapper<de.quist.app.maps.model.Tile, Tile, com.google.android.gms.maps.model.Tile>() {
 
-    final com.google.android.gms.maps.model.Tile original;
+        @Override
+        public Tile createWrapper(com.google.android.gms.maps.model.Tile original) {
+            return original != null ? new Tile(original) : null;
+        }
+    };
 
     private Tile(com.google.android.gms.maps.model.Tile original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
@@ -34,40 +33,10 @@ class Tile implements de.quist.app.maps.model.Tile {
         return original.data;
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Tile)) {
-            return false;
-        }
-
-        Tile other = (Tile)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
-
-    @Override
-    public int describeContents() {
-        return original.describeContents();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        original.writeToParcel(dest, flags);
-    }
-
-    public static final Parcelable.Creator<Tile> CREATOR
-            = new Parcelable.Creator<Tile>() {
+    public static final Creator<Tile> CREATOR
+            = new Creator<Tile>() {
         public Tile createFromParcel(Parcel in) {
-            return Tile.wrap(com.google.android.gms.maps.model.Tile.CREATOR.dm(in));
+            return Tile.MAPPER.wrap(com.google.android.gms.maps.model.Tile.CREATOR.dm(in));
         }
 
         public Tile[] newArray(int size) {

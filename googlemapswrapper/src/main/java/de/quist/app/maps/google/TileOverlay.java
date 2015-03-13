@@ -1,19 +1,19 @@
 package de.quist.app.maps.google;
 
-class TileOverlay implements de.quist.app.maps.model.TileOverlay {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.google.android.gms.maps.model.TileOverlay unwrap(de.quist.app.maps.model.TileOverlay tileOverlay) {
-        return tileOverlay != null ? ((TileOverlay)tileOverlay).original : null;
-    }
+class TileOverlay extends Wrapper<com.google.android.gms.maps.model.TileOverlay> implements de.quist.app.maps.model.TileOverlay {
 
-    static de.quist.app.maps.model.TileOverlay wrap(com.google.android.gms.maps.model.TileOverlay tileOverlay) {
-        return tileOverlay != null ? new TileOverlay(tileOverlay) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.TileOverlay, TileOverlay, com.google.android.gms.maps.model.TileOverlay> MAPPER = new DefaultMapper<de.quist.app.maps.model.TileOverlay, TileOverlay, com.google.android.gms.maps.model.TileOverlay>() {
 
-    final com.google.android.gms.maps.model.TileOverlay original;
+        @Override
+        public TileOverlay createWrapper(com.google.android.gms.maps.model.TileOverlay original) {
+            return original != null ? new TileOverlay(original) : null;
+        }
+    };
 
     private TileOverlay(com.google.android.gms.maps.model.TileOverlay original) {
-        this.original = original;
+        super(original);
     }
     
     @Override
@@ -61,23 +61,4 @@ class TileOverlay implements de.quist.app.maps.model.TileOverlay {
         return original.getFadeIn();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof TileOverlay)) {
-            return false;
-        }
-
-        TileOverlay other = (TileOverlay)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

@@ -6,26 +6,25 @@ import android.view.View;
 
 import de.quist.app.maps.LocationSource;
 import de.quist.app.maps.Map;
+import de.quist.app.maps.utils.Wrapper;
 
-class AmazonMap implements Map {
+class AmazonMap extends Wrapper<com.amazon.geo.mapsv2.AmazonMap> implements Map {
 
-    public static com.amazon.geo.mapsv2.AmazonMap unwrap(Map map) {
-        return map != null ? ((AmazonMap)map).original : null;
-    }
+    static final Mapper<Map, AmazonMap, com.amazon.geo.mapsv2.AmazonMap> MAPPER = new DefaultMapper<Map, AmazonMap, com.amazon.geo.mapsv2.AmazonMap>() {
 
-    public static AmazonMap wrap(com.amazon.geo.mapsv2.AmazonMap map) {
-        return map != null ? new AmazonMap(map) : null;
-    }
-
-    private final com.amazon.geo.mapsv2.AmazonMap original;
+        @Override
+        public AmazonMap createWrapper(com.amazon.geo.mapsv2.AmazonMap original) {
+            return original != null ? new AmazonMap(original) : null;
+        }
+    };
 
     public AmazonMap(com.amazon.geo.mapsv2.AmazonMap original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
     public de.quist.app.maps.model.CameraPosition getCameraPosition() {
-        return CameraPosition.wrap(original.getCameraPosition());
+        return CameraPosition.MAPPER.wrap(original.getCameraPosition());
     }
 
     @Override
@@ -40,12 +39,12 @@ class AmazonMap implements Map {
 
     @Override
     public void moveCamera(de.quist.app.maps.CameraUpdate update) {
-        original.moveCamera(CameraUpdate.unwrap(update));
+        original.moveCamera(CameraUpdate.MAPPER.unwrap(update));
     }
 
     @Override
     public void animateCamera(de.quist.app.maps.CameraUpdate update) {
-        original.animateCamera(CameraUpdate.unwrap(update));
+        original.animateCamera(CameraUpdate.MAPPER.unwrap(update));
     }
 
     @Override
@@ -64,7 +63,7 @@ class AmazonMap implements Map {
                 }
             };
         }
-        original.animateCamera(CameraUpdate.unwrap(update), wrapperCallback);
+        original.animateCamera(CameraUpdate.MAPPER.unwrap(update), wrapperCallback);
     }
 
     @Override
@@ -83,7 +82,7 @@ class AmazonMap implements Map {
                 }
             };
         }
-        original.animateCamera(CameraUpdate.unwrap(update), durationMs, wrapperCallback);
+        original.animateCamera(CameraUpdate.MAPPER.unwrap(update), durationMs, wrapperCallback);
     }
 
     @Override
@@ -93,32 +92,32 @@ class AmazonMap implements Map {
 
     @Override
     public de.quist.app.maps.model.Polyline addPolyline(de.quist.app.maps.model.PolylineOptions options) {
-        return Polyline.wrap(original.addPolyline(PolylineOptions.unwrap(options)));
+        return Polyline.MAPPER.wrap(original.addPolyline(PolylineOptions.MAPPER.unwrap(options)));
     }
 
     @Override
     public de.quist.app.maps.model.Polygon addPolygon(de.quist.app.maps.model.PolygonOptions options) {
-        return Polygon.wrap(original.addPolygon(PolygonOptions.unwrap(options)));
+        return Polygon.MAPPER.wrap(original.addPolygon(PolygonOptions.MAPPER.unwrap(options)));
     }
 
     @Override
     public de.quist.app.maps.model.Circle addCircle(de.quist.app.maps.model.CircleOptions options) {
-        return Circle.wrap(original.addCircle(CircleOptions.unwrap(options)));
+        return Circle.MAPPER.wrap(original.addCircle(CircleOptions.MAPPER.unwrap(options)));
     }
 
     @Override
     public de.quist.app.maps.model.Marker addMarker(de.quist.app.maps.model.MarkerOptions options) {
-        return Marker.wrap(original.addMarker(MarkerOptions.unwrap(options)));
+        return Marker.MAPPER.wrap(original.addMarker(MarkerOptions.MAPPER.unwrap(options)));
     }
 
     @Override
     public de.quist.app.maps.model.GroundOverlay addGroundOverlay(de.quist.app.maps.model.GroundOverlayOptions options) {
-        return GroundOverlay.wrap(original.addGroundOverlay(GroundOverlayOptions.unwrap(options)));
+        return GroundOverlay.MAPPER.wrap(original.addGroundOverlay(GroundOverlayOptions.MAPPER.unwrap(options)));
     }
 
     @Override
     public de.quist.app.maps.model.TileOverlay addTileOverlay(de.quist.app.maps.model.TileOverlayOptions options) {
-        return TileOverlay.wrap(original.addTileOverlay(TileOverlayOptions.unwrap(options)));
+        return TileOverlay.MAPPER.wrap(original.addTileOverlay(TileOverlayOptions.MAPPER.unwrap(options)));
     }
 
     @Override
@@ -128,7 +127,7 @@ class AmazonMap implements Map {
 
     @Override
     public de.quist.app.maps.model.IndoorBuilding getFocusedBuilding() {
-        return IndoorBuilding.wrap(original.getFocusedBuilding());
+        return IndoorBuilding.MAPPER.wrap(original.getFocusedBuilding());
     }
 
     @Override
@@ -144,7 +143,7 @@ class AmazonMap implements Map {
 
                 @Override
                 public void onIndoorLevelActivated(com.amazon.geo.mapsv2.model.IndoorBuilding indoorBuilding) {
-                    listener.onIndoorLevelActivated(IndoorBuilding.wrap(indoorBuilding));
+                    listener.onIndoorLevelActivated(IndoorBuilding.MAPPER.wrap(indoorBuilding));
                 }
             };
         }
@@ -227,12 +226,12 @@ class AmazonMap implements Map {
 
     @Override
     public de.quist.app.maps.UiSettings getUiSettings() {
-        return UiSettings.wrap(original.getUiSettings());
+        return UiSettings.MAPPER.wrap(original.getUiSettings());
     }
 
     @Override
     public de.quist.app.maps.Projection getProjection() {
-        return Projection.wrap(original.getProjection());
+        return Projection.MAPPER.wrap(original.getProjection());
     }
 
     @Override
@@ -242,7 +241,7 @@ class AmazonMap implements Map {
             wrapperListener = new com.amazon.geo.mapsv2.AmazonMap.OnCameraChangeListener() {
                 @Override
                 public void onCameraChange(com.amazon.geo.mapsv2.model.CameraPosition cameraPosition) {
-                    listener.onCameraChange(CameraPosition.wrap(cameraPosition));
+                    listener.onCameraChange(CameraPosition.MAPPER.wrap(cameraPosition));
                 }
             };
         }
@@ -257,7 +256,7 @@ class AmazonMap implements Map {
 
                 @Override
                 public void onMapClick(com.amazon.geo.mapsv2.model.LatLng latLng) {
-                    listener.onMapClick(LatLng.wrap(latLng));
+                    listener.onMapClick(LatLng.MAPPER.wrap(latLng));
                 }
             };
         }
@@ -272,7 +271,7 @@ class AmazonMap implements Map {
 
                 @Override
                 public void onMapLongClick(com.amazon.geo.mapsv2.model.LatLng latLng) {
-                    listener.onMapLongClick(LatLng.wrap(latLng));
+                    listener.onMapLongClick(LatLng.MAPPER.wrap(latLng));
                 }
             };
         }
@@ -287,7 +286,7 @@ class AmazonMap implements Map {
 
                 @Override
                 public boolean onMarkerClick(com.amazon.geo.mapsv2.model.Marker marker) {
-                    return listener.onMarkerClick(Marker.wrap(marker));
+                    return listener.onMarkerClick(Marker.MAPPER.wrap(marker));
                 }
             };
         }
@@ -302,17 +301,17 @@ class AmazonMap implements Map {
 
                 @Override
                 public void onMarkerDragStart(com.amazon.geo.mapsv2.model.Marker marker) {
-                    listener.onMarkerDragStart(Marker.wrap(marker));
+                    listener.onMarkerDragStart(Marker.MAPPER.wrap(marker));
                 }
 
                 @Override
                 public void onMarkerDrag(com.amazon.geo.mapsv2.model.Marker marker) {
-                    listener.onMarkerDrag(Marker.wrap(marker));
+                    listener.onMarkerDrag(Marker.MAPPER.wrap(marker));
                 }
 
                 @Override
                 public void onMarkerDragEnd(com.amazon.geo.mapsv2.model.Marker marker) {
-                    listener.onMarkerDragEnd(Marker.wrap(marker));
+                    listener.onMarkerDragEnd(Marker.MAPPER.wrap(marker));
                 }
             };
         }
@@ -327,7 +326,7 @@ class AmazonMap implements Map {
 
                 @Override
                 public void onInfoWindowClick(com.amazon.geo.mapsv2.model.Marker marker) {
-                    listener.onInfoWindowClick(Marker.wrap(marker));
+                    listener.onInfoWindowClick(Marker.MAPPER.wrap(marker));
                 }
             };
         }
@@ -342,12 +341,12 @@ class AmazonMap implements Map {
 
                 @Override
                 public View getInfoWindow(com.amazon.geo.mapsv2.model.Marker marker) {
-                    return adapter.getInfoWindow(Marker.wrap(marker));
+                    return adapter.getInfoWindow(Marker.MAPPER.wrap(marker));
                 }
 
                 @Override
                 public View getInfoContents(com.amazon.geo.mapsv2.model.Marker marker) {
-                    return adapter.getInfoContents(Marker.wrap(marker));
+                    return adapter.getInfoContents(Marker.MAPPER.wrap(marker));
                 }
             };
         }
@@ -424,23 +423,4 @@ class AmazonMap implements Map {
         // Not available
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof AmazonMap)) {
-            return false;
-        }
-
-        AmazonMap other = (AmazonMap)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

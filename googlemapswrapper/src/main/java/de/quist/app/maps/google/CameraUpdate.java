@@ -1,39 +1,20 @@
 package de.quist.app.maps.google;
 
 
-class CameraUpdate implements de.quist.app.maps.CameraUpdate {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.google.android.gms.maps.CameraUpdate unwrap(de.quist.app.maps.CameraUpdate cameraUpdate) {
-        return cameraUpdate != null ? ((CameraUpdate)cameraUpdate).original : null;
-    }
+class CameraUpdate extends Wrapper<com.google.android.gms.maps.CameraUpdate> implements de.quist.app.maps.CameraUpdate {
 
-    static de.quist.app.maps.CameraUpdate wrap(com.google.android.gms.maps.CameraUpdate cameraUpdate) {
-        return cameraUpdate != null ? new CameraUpdate(cameraUpdate) : null;
-    }
+    static final Mapper<de.quist.app.maps.CameraUpdate, CameraUpdate, com.google.android.gms.maps.CameraUpdate> MAPPER = new DefaultMapper<de.quist.app.maps.CameraUpdate, CameraUpdate, com.google.android.gms.maps.CameraUpdate>() {
 
-    final com.google.android.gms.maps.CameraUpdate original;
+        @Override
+        public CameraUpdate createWrapper(com.google.android.gms.maps.CameraUpdate original) {
+            return original != null ? new CameraUpdate(original) : null;
+        }
+    };
 
     private CameraUpdate(com.google.android.gms.maps.CameraUpdate cameraUpdate) {
-        this.original = cameraUpdate;
+        super(cameraUpdate);
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof CameraUpdate)) {
-            return false;
-        }
-
-        CameraUpdate other = (CameraUpdate)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

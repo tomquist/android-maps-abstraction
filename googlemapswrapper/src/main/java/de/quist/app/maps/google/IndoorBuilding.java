@@ -3,20 +3,20 @@ package de.quist.app.maps.google;
 import java.util.ArrayList;
 import java.util.List;
 
-class IndoorBuilding implements de.quist.app.maps.model.IndoorBuilding {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.google.android.gms.maps.model.IndoorBuilding unwrap(de.quist.app.maps.model.IndoorBuilding indoorBuilding) {
-        return indoorBuilding != null ? ((IndoorBuilding)indoorBuilding).original : null;
-    }
+class IndoorBuilding extends Wrapper<com.google.android.gms.maps.model.IndoorBuilding> implements de.quist.app.maps.model.IndoorBuilding {
 
-    static de.quist.app.maps.model.IndoorBuilding wrap(com.google.android.gms.maps.model.IndoorBuilding indoorBuilding) {
-        return indoorBuilding != null ? new IndoorBuilding(indoorBuilding) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.IndoorBuilding, IndoorBuilding, com.google.android.gms.maps.model.IndoorBuilding> MAPPER = new DefaultMapper<de.quist.app.maps.model.IndoorBuilding, IndoorBuilding, com.google.android.gms.maps.model.IndoorBuilding>() {
 
-    final com.google.android.gms.maps.model.IndoorBuilding original;
+        @Override
+        public IndoorBuilding createWrapper(com.google.android.gms.maps.model.IndoorBuilding original) {
+            return original != null ? new IndoorBuilding(original) : null;
+        }
+    };
 
     private IndoorBuilding(com.google.android.gms.maps.model.IndoorBuilding original) {
-        this.original = original;
+        super(original);
     }
     
     @Override
@@ -34,7 +34,7 @@ class IndoorBuilding implements de.quist.app.maps.model.IndoorBuilding {
         List<com.google.android.gms.maps.model.IndoorLevel> unwrappedLevels = original.getLevels();
         List<de.quist.app.maps.model.IndoorLevel> wrappedLevels = new ArrayList<>(unwrappedLevels.size());
         for (com.google.android.gms.maps.model.IndoorLevel indoorLevel : unwrappedLevels) {
-            wrappedLevels.add(IndoorLevel.wrap(indoorLevel));
+            wrappedLevels.add(IndoorLevel.MAPPER.wrap(indoorLevel));
         }
         return wrappedLevels;
     }
@@ -44,23 +44,4 @@ class IndoorBuilding implements de.quist.app.maps.model.IndoorBuilding {
         return original.isUnderground();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof IndoorBuilding)) {
-            return false;
-        }
-
-        IndoorBuilding other = (IndoorBuilding)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

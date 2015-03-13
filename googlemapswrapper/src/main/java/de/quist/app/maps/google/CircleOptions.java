@@ -1,27 +1,26 @@
 package de.quist.app.maps.google;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
-class CircleOptions implements de.quist.app.maps.model.CircleOptions {
+import de.quist.app.maps.utils.ParcelableWrapper;
 
-    static com.google.android.gms.maps.model.CircleOptions unwrap(de.quist.app.maps.model.CircleOptions circleOptions) {
-        return circleOptions != null ? ((CircleOptions)circleOptions).original : null;
-    }
+class CircleOptions extends ParcelableWrapper<com.google.android.gms.maps.model.CircleOptions> implements de.quist.app.maps.model.CircleOptions {
 
-    static CircleOptions wrap(com.google.android.gms.maps.model.CircleOptions circleOptions) {
-        return circleOptions != null ? new CircleOptions(circleOptions) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.CircleOptions, CircleOptions, com.google.android.gms.maps.model.CircleOptions> MAPPER = new DefaultMapper<de.quist.app.maps.model.CircleOptions, CircleOptions, com.google.android.gms.maps.model.CircleOptions>() {
 
-    final com.google.android.gms.maps.model.CircleOptions original;
+        @Override
+        public CircleOptions createWrapper(com.google.android.gms.maps.model.CircleOptions original) {
+            return original != null ? new CircleOptions(original) : null;
+        }
+    };
 
     public CircleOptions(com.google.android.gms.maps.model.CircleOptions original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
     public de.quist.app.maps.model.CircleOptions center(de.quist.app.maps.model.LatLng center) {
-        com.google.android.gms.maps.model.CircleOptions ret = original.center(LatLng.unwrap(center));
+        com.google.android.gms.maps.model.CircleOptions ret = original.center(LatLng.MAPPER.unwrap(center));
         if (ret == original) {
             return this;
         } else {
@@ -91,7 +90,7 @@ class CircleOptions implements de.quist.app.maps.model.CircleOptions {
 
     @Override
     public de.quist.app.maps.model.LatLng getCenter() {
-        return LatLng.wrap(original.getCenter());
+        return LatLng.MAPPER.wrap(original.getCenter());
     }
 
     @Override
@@ -124,40 +123,10 @@ class CircleOptions implements de.quist.app.maps.model.CircleOptions {
         return original.isVisible();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof CircleOptions)) {
-            return false;
-        }
-
-        CircleOptions other = (CircleOptions)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
-
-    @Override
-    public int describeContents() {
-        return original.describeContents();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        original.writeToParcel(dest, flags);
-    }
-
-    public static final Parcelable.Creator<CircleOptions> CREATOR
-            = new Parcelable.Creator<CircleOptions>() {
+    public static final Creator<CircleOptions> CREATOR
+            = new Creator<CircleOptions>() {
         public CircleOptions createFromParcel(Parcel in) {
-            return CircleOptions.wrap(com.google.android.gms.maps.model.CircleOptions.CREATOR.db(in));
+            return CircleOptions.MAPPER.wrap(com.google.android.gms.maps.model.CircleOptions.CREATOR.db(in));
         }
 
         public CircleOptions[] newArray(int size) {

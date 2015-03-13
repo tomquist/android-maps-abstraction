@@ -2,54 +2,35 @@ package de.quist.app.maps.amazon;
 
 import android.graphics.Point;
 
-class Projection implements de.quist.app.maps.Projection {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.amazon.geo.mapsv2.Projection unwrap(de.quist.app.maps.Projection projection) {
-        return projection != null ? ((Projection)projection).original : null;
-    }
+class Projection extends Wrapper<com.amazon.geo.mapsv2.Projection> implements de.quist.app.maps.Projection {
 
-    static de.quist.app.maps.Projection wrap(com.amazon.geo.mapsv2.Projection projection) {
-        return projection != null ? new Projection(projection) : null;
-    }
+    static final Mapper<de.quist.app.maps.Projection, Projection, com.amazon.geo.mapsv2.Projection> MAPPER = new DefaultMapper<de.quist.app.maps.Projection, Projection, com.amazon.geo.mapsv2.Projection>() {
 
-    final com.amazon.geo.mapsv2.Projection original;
+        @Override
+        public Projection createWrapper(com.amazon.geo.mapsv2.Projection original) {
+            return original != null ? new Projection(original) : null;
+        }
+    };
 
     private Projection(com.amazon.geo.mapsv2.Projection original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
     public de.quist.app.maps.model.LatLng fromScreenLocation(Point point) {
-        return LatLng.wrap(original.fromScreenLocation(point));
+        return LatLng.MAPPER.wrap(original.fromScreenLocation(point));
     }
 
     @Override
     public Point toScreenLocation(de.quist.app.maps.model.LatLng location) {
-        return original.toScreenLocation(LatLng.unwrap(location));
+        return original.toScreenLocation(LatLng.MAPPER.unwrap(location));
     }
 
     @Override
     public de.quist.app.maps.model.VisibleRegion getVisibleRegion() {
-        return VisibleRegion.wrap(original.getVisibleRegion());
+        return VisibleRegion.MAPPER.wrap(original.getVisibleRegion());
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Projection)) {
-            return false;
-        }
-
-        Projection other = (Projection)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

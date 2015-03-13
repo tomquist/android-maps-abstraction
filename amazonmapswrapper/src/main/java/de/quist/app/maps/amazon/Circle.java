@@ -1,19 +1,19 @@
 package de.quist.app.maps.amazon;
 
-class Circle implements de.quist.app.maps.model.Circle {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.amazon.geo.mapsv2.model.Circle unwrap(de.quist.app.maps.model.Circle circle) {
-        return circle != null ? ((Circle)circle).original : null;
-    }
+class Circle extends Wrapper<com.amazon.geo.mapsv2.model.Circle> implements de.quist.app.maps.model.Circle {
 
-    static de.quist.app.maps.model.Circle wrap(com.amazon.geo.mapsv2.model.Circle circle) {
-        return circle != null ? new Circle(circle) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.Circle, Circle, com.amazon.geo.mapsv2.model.Circle> MAPPER = new DefaultMapper<de.quist.app.maps.model.Circle, Circle, com.amazon.geo.mapsv2.model.Circle>() {
 
-    final com.amazon.geo.mapsv2.model.Circle original;
+        @Override
+        public Circle createWrapper(com.amazon.geo.mapsv2.model.Circle original) {
+            return original != null ? new Circle(original) : null;
+        }
+    };
 
     private Circle(com.amazon.geo.mapsv2.model.Circle original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
@@ -28,12 +28,12 @@ class Circle implements de.quist.app.maps.model.Circle {
 
     @Override
     public void setCenter(de.quist.app.maps.model.LatLng center) {
-        original.setCenter(LatLng.unwrap(center));
+        original.setCenter(LatLng.MAPPER.unwrap(center));
     }
 
     @Override
     public de.quist.app.maps.model.LatLng getCenter() {
-        return LatLng.wrap(original.getCenter());
+        return LatLng.MAPPER.wrap(original.getCenter());
     }
 
     @Override
@@ -97,32 +97,12 @@ class Circle implements de.quist.app.maps.model.Circle {
     }
 
     @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Circle)) {
-            return false;
-        }
-
-        Circle other = (Circle)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
-
-    @Override
     public void setPosition(de.quist.app.maps.model.LatLng latLng) {
-        original.setCenter(LatLng.unwrap(latLng));
+        original.setCenter(LatLng.MAPPER.unwrap(latLng));
     }
 
     @Override
     public de.quist.app.maps.model.LatLng getPosition() {
-        return LatLng.wrap(original.getCenter());
+        return LatLng.MAPPER.wrap(original.getCenter());
     }
 }

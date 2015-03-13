@@ -3,20 +3,20 @@ package de.quist.app.maps.amazon;
 import java.util.ArrayList;
 import java.util.List;
 
-class Polygon implements de.quist.app.maps.model.Polygon {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.amazon.geo.mapsv2.model.Polygon unwrap(de.quist.app.maps.model.Polygon polygon) {
-        return polygon != null ? ((Polygon)polygon).original : null;
-    }
+class Polygon extends Wrapper<com.amazon.geo.mapsv2.model.Polygon> implements de.quist.app.maps.model.Polygon {
 
-    static de.quist.app.maps.model.Polygon wrap(com.amazon.geo.mapsv2.model.Polygon polygon) {
-        return polygon != null ? new Polygon(polygon) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.Polygon, Polygon, com.amazon.geo.mapsv2.model.Polygon> MAPPER = new DefaultMapper<de.quist.app.maps.model.Polygon, Polygon, com.amazon.geo.mapsv2.model.Polygon>() {
 
-    final com.amazon.geo.mapsv2.model.Polygon original;
+        @Override
+        public Polygon createWrapper(com.amazon.geo.mapsv2.model.Polygon original) {
+            return original != null ? new Polygon(original) : null;
+        }
+    };
 
     private Polygon(com.amazon.geo.mapsv2.model.Polygon original) {
-        this.original = original;
+        super(original);
     }
     
     @Override
@@ -118,23 +118,4 @@ class Polygon implements de.quist.app.maps.model.Polygon {
         return original.isGeodesic();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Polygon)) {
-            return false;
-        }
-
-        Polygon other = (Polygon)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

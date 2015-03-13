@@ -3,29 +3,29 @@ package de.quist.app.maps.amazon;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-class TileOverlayOptions implements de.quist.app.maps.model.TileOverlayOptions {
+import de.quist.app.maps.utils.ParcelableWrapper;
 
-    static com.amazon.geo.mapsv2.model.TileOverlayOptions unwrap(de.quist.app.maps.model.TileOverlayOptions tileOverlayOptions) {
-        return tileOverlayOptions != null ? ((TileOverlayOptions)tileOverlayOptions).original : null;
-    }
+class TileOverlayOptions extends ParcelableWrapper<com.amazon.geo.mapsv2.model.TileOverlayOptions> implements de.quist.app.maps.model.TileOverlayOptions {
 
-    static TileOverlayOptions wrap(com.amazon.geo.mapsv2.model.TileOverlayOptions tileOverlayOptions) {
-        return tileOverlayOptions != null ? new TileOverlayOptions(tileOverlayOptions) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.TileOverlayOptions, TileOverlayOptions, com.amazon.geo.mapsv2.model.TileOverlayOptions> MAPPER = new DefaultMapper<de.quist.app.maps.model.TileOverlayOptions, TileOverlayOptions, com.amazon.geo.mapsv2.model.TileOverlayOptions>() {
 
-    final com.amazon.geo.mapsv2.model.TileOverlayOptions original;
+        @Override
+        public TileOverlayOptions createWrapper(com.amazon.geo.mapsv2.model.TileOverlayOptions original) {
+            return original != null ? new TileOverlayOptions(original) : null;
+        }
+    };
 
     private TileOverlayOptions(com.amazon.geo.mapsv2.model.TileOverlayOptions original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
     public de.quist.app.maps.model.TileOverlayOptions tileProvider(de.quist.app.maps.model.TileProvider tileProvider) {
-        com.amazon.geo.mapsv2.model.TileOverlayOptions ret = original.tileProvider(WrapperTileProvider.wrap(tileProvider));
+        com.amazon.geo.mapsv2.model.TileOverlayOptions ret = original.tileProvider(WrapperTileProvider.MAPPER.wrap(tileProvider));
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -35,7 +35,7 @@ class TileOverlayOptions implements de.quist.app.maps.model.TileOverlayOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -45,7 +45,7 @@ class TileOverlayOptions implements de.quist.app.maps.model.TileOverlayOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -55,7 +55,7 @@ class TileOverlayOptions implements de.quist.app.maps.model.TileOverlayOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -65,7 +65,7 @@ class TileOverlayOptions implements de.quist.app.maps.model.TileOverlayOptions {
         if (tileProvider instanceof WrapperTileProvider) {
             return WrapperTileProvider.unwrap(tileProvider);
         } else {
-            return TileProvider.wrap(tileProvider);
+            return TileProvider.MAPPER.wrap(tileProvider);
         }
     }
 
@@ -84,40 +84,10 @@ class TileOverlayOptions implements de.quist.app.maps.model.TileOverlayOptions {
         return original.getFadeIn();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof TileOverlayOptions)) {
-            return false;
-        }
-
-        TileOverlayOptions other = (TileOverlayOptions)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
-
-    @Override
-    public int describeContents() {
-        return original.describeContents();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        original.writeToParcel(dest, flags);
-    }
-
     public static final Parcelable.Creator<TileOverlayOptions> CREATOR
             = new Parcelable.Creator<TileOverlayOptions>() {
         public TileOverlayOptions createFromParcel(Parcel in) {
-            return TileOverlayOptions.wrap(com.amazon.geo.mapsv2.model.TileOverlayOptions.CREATOR.createFromParcel(in));
+            return TileOverlayOptions.MAPPER.wrap(com.amazon.geo.mapsv2.model.TileOverlayOptions.CREATOR.createFromParcel(in));
         }
 
         public TileOverlayOptions[] newArray(int size) {

@@ -6,26 +6,25 @@ import android.view.View;
 
 import de.quist.app.maps.LocationSource;
 import de.quist.app.maps.Map;
+import de.quist.app.maps.utils.Wrapper;
 
-class GoogleMap implements Map {
+class GoogleMap extends Wrapper<com.google.android.gms.maps.GoogleMap> implements Map {
 
-    public static com.google.android.gms.maps.GoogleMap unwrap(Map map) {
-        return map != null ? ((GoogleMap)map).original : null;
-    }
+    static final Mapper<Map, GoogleMap, com.google.android.gms.maps.GoogleMap> MAPPER = new DefaultMapper<Map, GoogleMap, com.google.android.gms.maps.GoogleMap>() {
 
-    public static GoogleMap wrap(com.google.android.gms.maps.GoogleMap map) {
-        return map != null ? new GoogleMap(map) : null;
-    }
+        @Override
+        public GoogleMap createWrapper(com.google.android.gms.maps.GoogleMap original) {
+            return original != null ? new GoogleMap(original) : null;
+        }
+    };
 
-    private final com.google.android.gms.maps.GoogleMap original;
-
-    GoogleMap(com.google.android.gms.maps.GoogleMap original) {
-        this.original = original;
+    public GoogleMap(com.google.android.gms.maps.GoogleMap original) {
+        super(original);
     }
 
     @Override
     public de.quist.app.maps.model.CameraPosition getCameraPosition() {
-        return CameraPosition.wrap(original.getCameraPosition());
+        return CameraPosition.MAPPER.wrap(original.getCameraPosition());
     }
 
     @Override
@@ -40,12 +39,12 @@ class GoogleMap implements Map {
 
     @Override
     public void moveCamera(de.quist.app.maps.CameraUpdate update) {
-        original.moveCamera(CameraUpdate.unwrap(update));
+        original.moveCamera(CameraUpdate.MAPPER.unwrap(update));
     }
 
     @Override
     public void animateCamera(de.quist.app.maps.CameraUpdate update) {
-        original.animateCamera(CameraUpdate.unwrap(update));
+        original.animateCamera(CameraUpdate.MAPPER.unwrap(update));
     }
 
     @Override
@@ -64,7 +63,7 @@ class GoogleMap implements Map {
                 }
             };
         }
-        original.animateCamera(CameraUpdate.unwrap(update), wrapperCallback);
+        original.animateCamera(CameraUpdate.MAPPER.unwrap(update), wrapperCallback);
     }
 
     @Override
@@ -83,7 +82,7 @@ class GoogleMap implements Map {
                 }
             };
         }
-        original.animateCamera(CameraUpdate.unwrap(update), durationMs, wrapperCallback);
+        original.animateCamera(CameraUpdate.MAPPER.unwrap(update), durationMs, wrapperCallback);
     }
 
     @Override
@@ -93,32 +92,32 @@ class GoogleMap implements Map {
 
     @Override
     public de.quist.app.maps.model.Polyline addPolyline(de.quist.app.maps.model.PolylineOptions options) {
-        return Polyline.wrap(original.addPolyline(PolylineOptions.unwrap(options)));
+        return Polyline.MAPPER.wrap(original.addPolyline(PolylineOptions.MAPPER.unwrap(options)));
     }
 
     @Override
     public de.quist.app.maps.model.Polygon addPolygon(de.quist.app.maps.model.PolygonOptions options) {
-        return Polygon.wrap(original.addPolygon(PolygonOptions.unwrap(options)));
+        return Polygon.MAPPER.wrap(original.addPolygon(PolygonOptions.MAPPER.unwrap(options)));
     }
 
     @Override
     public de.quist.app.maps.model.Circle addCircle(de.quist.app.maps.model.CircleOptions options) {
-        return Circle.wrap(original.addCircle(CircleOptions.unwrap(options)));
+        return Circle.MAPPER.wrap(original.addCircle(CircleOptions.MAPPER.unwrap(options)));
     }
 
     @Override
     public de.quist.app.maps.model.Marker addMarker(de.quist.app.maps.model.MarkerOptions options) {
-        return Marker.wrap(original.addMarker(MarkerOptions.unwrap(options)));
+        return Marker.MAPPER.wrap(original.addMarker(MarkerOptions.MAPPER.unwrap(options)));
     }
 
     @Override
     public de.quist.app.maps.model.GroundOverlay addGroundOverlay(de.quist.app.maps.model.GroundOverlayOptions options) {
-        return GroundOverlay.wrap(original.addGroundOverlay(GroundOverlayOptions.unwrap(options)));
+        return GroundOverlay.MAPPER.wrap(original.addGroundOverlay(GroundOverlayOptions.MAPPER.unwrap(options)));
     }
 
     @Override
     public de.quist.app.maps.model.TileOverlay addTileOverlay(de.quist.app.maps.model.TileOverlayOptions options) {
-        return TileOverlay.wrap(original.addTileOverlay(TileOverlayOptions.unwrap(options)));
+        return TileOverlay.MAPPER.wrap(original.addTileOverlay(TileOverlayOptions.MAPPER.unwrap(options)));
     }
 
     @Override
@@ -128,7 +127,7 @@ class GoogleMap implements Map {
 
     @Override
     public de.quist.app.maps.model.IndoorBuilding getFocusedBuilding() {
-        return IndoorBuilding.wrap(original.getFocusedBuilding());
+        return IndoorBuilding.MAPPER.wrap(original.getFocusedBuilding());
     }
 
     @Override
@@ -136,6 +135,7 @@ class GoogleMap implements Map {
         com.google.android.gms.maps.GoogleMap.OnIndoorStateChangeListener wrapperListener = null;
         if (listener != null) {
             wrapperListener = new com.google.android.gms.maps.GoogleMap.OnIndoorStateChangeListener() {
+
                 @Override
                 public void onIndoorBuildingFocused() {
                     listener.onIndoorBuildingFocused();
@@ -143,7 +143,7 @@ class GoogleMap implements Map {
 
                 @Override
                 public void onIndoorLevelActivated(com.google.android.gms.maps.model.IndoorBuilding indoorBuilding) {
-                    listener.onIndoorLevelActivated(IndoorBuilding.wrap(indoorBuilding));
+                    listener.onIndoorLevelActivated(IndoorBuilding.MAPPER.wrap(indoorBuilding));
                 }
             };
         }
@@ -226,12 +226,12 @@ class GoogleMap implements Map {
 
     @Override
     public de.quist.app.maps.UiSettings getUiSettings() {
-        return UiSettings.wrap(original.getUiSettings());
+        return UiSettings.MAPPER.wrap(original.getUiSettings());
     }
 
     @Override
     public de.quist.app.maps.Projection getProjection() {
-        return Projection.wrap(original.getProjection());
+        return Projection.MAPPER.wrap(original.getProjection());
     }
 
     @Override
@@ -241,7 +241,7 @@ class GoogleMap implements Map {
             wrapperListener = new com.google.android.gms.maps.GoogleMap.OnCameraChangeListener() {
                 @Override
                 public void onCameraChange(com.google.android.gms.maps.model.CameraPosition cameraPosition) {
-                    listener.onCameraChange(CameraPosition.wrap(cameraPosition));
+                    listener.onCameraChange(CameraPosition.MAPPER.wrap(cameraPosition));
                 }
             };
         }
@@ -256,7 +256,7 @@ class GoogleMap implements Map {
 
                 @Override
                 public void onMapClick(com.google.android.gms.maps.model.LatLng latLng) {
-                    listener.onMapClick(LatLng.wrap(latLng));
+                    listener.onMapClick(LatLng.MAPPER.wrap(latLng));
                 }
             };
         }
@@ -271,7 +271,7 @@ class GoogleMap implements Map {
 
                 @Override
                 public void onMapLongClick(com.google.android.gms.maps.model.LatLng latLng) {
-                    listener.onMapLongClick(LatLng.wrap(latLng));
+                    listener.onMapLongClick(LatLng.MAPPER.wrap(latLng));
                 }
             };
         }
@@ -286,7 +286,7 @@ class GoogleMap implements Map {
 
                 @Override
                 public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
-                    return listener.onMarkerClick(Marker.wrap(marker));
+                    return listener.onMarkerClick(Marker.MAPPER.wrap(marker));
                 }
             };
         }
@@ -301,17 +301,17 @@ class GoogleMap implements Map {
 
                 @Override
                 public void onMarkerDragStart(com.google.android.gms.maps.model.Marker marker) {
-                    listener.onMarkerDragStart(Marker.wrap(marker));
+                    listener.onMarkerDragStart(Marker.MAPPER.wrap(marker));
                 }
 
                 @Override
                 public void onMarkerDrag(com.google.android.gms.maps.model.Marker marker) {
-                    listener.onMarkerDrag(Marker.wrap(marker));
+                    listener.onMarkerDrag(Marker.MAPPER.wrap(marker));
                 }
 
                 @Override
                 public void onMarkerDragEnd(com.google.android.gms.maps.model.Marker marker) {
-                    listener.onMarkerDragEnd(Marker.wrap(marker));
+                    listener.onMarkerDragEnd(Marker.MAPPER.wrap(marker));
                 }
             };
         }
@@ -326,7 +326,7 @@ class GoogleMap implements Map {
 
                 @Override
                 public void onInfoWindowClick(com.google.android.gms.maps.model.Marker marker) {
-                    listener.onInfoWindowClick(Marker.wrap(marker));
+                    listener.onInfoWindowClick(Marker.MAPPER.wrap(marker));
                 }
             };
         }
@@ -341,12 +341,12 @@ class GoogleMap implements Map {
 
                 @Override
                 public View getInfoWindow(com.google.android.gms.maps.model.Marker marker) {
-                    return adapter.getInfoWindow(Marker.wrap(marker));
+                    return adapter.getInfoWindow(Marker.MAPPER.wrap(marker));
                 }
 
                 @Override
                 public View getInfoContents(com.google.android.gms.maps.model.Marker marker) {
-                    return adapter.getInfoContents(Marker.wrap(marker));
+                    return adapter.getInfoContents(Marker.MAPPER.wrap(marker));
                 }
             };
         }
@@ -421,26 +421,6 @@ class GoogleMap implements Map {
     @Override
     public void setContentDescription(String description) {
         original.setContentDescription(description);
-    }
-
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof GoogleMap)) {
-            return false;
-        }
-
-        GoogleMap other = (GoogleMap)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
     }
 
 }

@@ -1,19 +1,19 @@
 package de.quist.app.maps.amazon;
 
-class UiSettings implements de.quist.app.maps.UiSettings {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.amazon.geo.mapsv2.UiSettings unwrap(de.quist.app.maps.UiSettings uiSettings) {
-        return uiSettings != null ? ((UiSettings)uiSettings).original : null;
-    }
+class UiSettings extends Wrapper<com.amazon.geo.mapsv2.UiSettings> implements de.quist.app.maps.UiSettings {
 
-    static de.quist.app.maps.UiSettings wrap(com.amazon.geo.mapsv2.UiSettings uiSettings) {
-        return uiSettings != null ? new UiSettings(uiSettings) : null;
-    }
+    static final Mapper<de.quist.app.maps.UiSettings, UiSettings, com.amazon.geo.mapsv2.UiSettings> MAPPER = new DefaultMapper<de.quist.app.maps.UiSettings, UiSettings, com.amazon.geo.mapsv2.UiSettings>() {
 
-    final com.amazon.geo.mapsv2.UiSettings original;
+        @Override
+        public UiSettings createWrapper(com.amazon.geo.mapsv2.UiSettings original) {
+            return original != null ? new UiSettings(original) : null;
+        }
+    };
 
     private UiSettings(com.amazon.geo.mapsv2.UiSettings original) {
-        this.original = original;
+        super(original);
     }
     
     @Override
@@ -109,26 +109,6 @@ class UiSettings implements de.quist.app.maps.UiSettings {
     @Override
     public boolean isMapToolbarEnabled() {
         return original.isMapToolbarEnabled();
-    }
-
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof UiSettings)) {
-            return false;
-        }
-
-        UiSettings other = (UiSettings)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
     }
 
 }

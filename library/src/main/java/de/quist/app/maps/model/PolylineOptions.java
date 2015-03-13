@@ -10,7 +10,7 @@ public interface PolylineOptions extends Parcelable {
 
     PolylineOptions add(LatLng... points);
 
-    PolylineOptions addAll(java.lang.Iterable<LatLng> points);
+    PolylineOptions addAll(Iterable<LatLng> points);
 
     PolylineOptions width(float width);
 

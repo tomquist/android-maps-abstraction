@@ -1,19 +1,19 @@
 package de.quist.app.maps.amazon;
 
-class GroundOverlay implements de.quist.app.maps.model.GroundOverlay {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.amazon.geo.mapsv2.model.GroundOverlay unwrap(de.quist.app.maps.model.GroundOverlay groundOverlay) {
-        return groundOverlay != null ? ((GroundOverlay)groundOverlay).original : null;
-    }
+class GroundOverlay extends Wrapper<com.amazon.geo.mapsv2.model.GroundOverlay> implements de.quist.app.maps.model.GroundOverlay {
 
-    static de.quist.app.maps.model.GroundOverlay wrap(com.amazon.geo.mapsv2.model.GroundOverlay groundOverlay) {
-        return groundOverlay != null ? new GroundOverlay(groundOverlay) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.GroundOverlay, GroundOverlay, com.amazon.geo.mapsv2.model.GroundOverlay> MAPPER = new DefaultMapper<de.quist.app.maps.model.GroundOverlay, GroundOverlay, com.amazon.geo.mapsv2.model.GroundOverlay>() {
 
-    final com.amazon.geo.mapsv2.model.GroundOverlay original;
+        @Override
+        public GroundOverlay createWrapper(com.amazon.geo.mapsv2.model.GroundOverlay original) {
+            return original != null ? new GroundOverlay(original) : null;
+        }
+    };
 
     private GroundOverlay(com.amazon.geo.mapsv2.model.GroundOverlay original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
@@ -28,17 +28,17 @@ class GroundOverlay implements de.quist.app.maps.model.GroundOverlay {
 
     @Override
     public void setPosition(de.quist.app.maps.model.LatLng latLng) {
-        original.setPosition(LatLng.unwrap(latLng));
+        original.setPosition(LatLng.MAPPER.unwrap(latLng));
     }
 
     @Override
     public de.quist.app.maps.model.LatLng getPosition() {
-        return LatLng.wrap(original.getPosition());
+        return LatLng.MAPPER.wrap(original.getPosition());
     }
 
     @Override
     public void setImage(de.quist.app.maps.model.BitmapDescriptor image) {
-        original.setImage(BitmapDescriptor.unwrap(image));
+        original.setImage(BitmapDescriptor.MAPPER.unwrap(image));
     }
 
     @Override
@@ -63,12 +63,12 @@ class GroundOverlay implements de.quist.app.maps.model.GroundOverlay {
 
     @Override
     public void setPositionFromBounds(de.quist.app.maps.model.LatLngBounds bounds) {
-        original.setPositionFromBounds(LatLngBounds.unwrap(bounds));
+        original.setPositionFromBounds(LatLngBounds.MAPPER.unwrap(bounds));
     }
 
     @Override
     public de.quist.app.maps.model.LatLngBounds getBounds() {
-        return LatLngBounds.wrap(original.getBounds());
+        return LatLngBounds.MAPPER.wrap(original.getBounds());
     }
 
     @Override
@@ -111,23 +111,4 @@ class GroundOverlay implements de.quist.app.maps.model.GroundOverlay {
         return original.getTransparency();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof GroundOverlay)) {
-            return false;
-        }
-
-        GroundOverlay other = (GroundOverlay)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

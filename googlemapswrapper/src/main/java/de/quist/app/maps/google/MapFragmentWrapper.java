@@ -2,28 +2,29 @@ package de.quist.app.maps.google;
 
 import android.view.View;
 
+import com.google.android.gms.maps.MapFragment;
+
 import de.quist.app.maps.Map;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.utils.Wrapper;
 
-class MapFragmentWrapper implements de.quist.app.maps.MapFragmentWrapper {
+class MapFragmentWrapper extends Wrapper<MapFragment> implements de.quist.app.maps.MapFragmentWrapper {
 
-    public static com.google.android.gms.maps.MapFragment unwrap(de.quist.app.maps.google.MapFragmentWrapper map) {
-        return map != null ? map.original : null;
-    }
+    static final Mapper<de.quist.app.maps.MapFragmentWrapper, MapFragmentWrapper, com.google.android.gms.maps.MapFragment> MAPPER = new DefaultMapper<de.quist.app.maps.MapFragmentWrapper, MapFragmentWrapper, com.google.android.gms.maps.MapFragment>() {
 
-    public static de.quist.app.maps.google.MapFragmentWrapper wrap(com.google.android.gms.maps.MapFragment map) {
-        return map != null ? new de.quist.app.maps.google.MapFragmentWrapper(map) : null;
-    }
+        @Override
+        public MapFragmentWrapper createWrapper(MapFragment original) {
+            return original != null ? new MapFragmentWrapper(original) : null;
+        }
+    };
 
-    private final com.google.android.gms.maps.MapFragment original;
-
-    MapFragmentWrapper(com.google.android.gms.maps.MapFragment original) {
-        this.original = original;
+    private MapFragmentWrapper(com.google.android.gms.maps.MapFragment original) {
+        super(original);
     }
 
     @Override
     public Map getMap() {
-        return GoogleMap.wrap(original.getMap());
+        return GoogleMap.MAPPER.wrap(original.getMap());
     }
 
     @Override
@@ -33,7 +34,7 @@ class MapFragmentWrapper implements de.quist.app.maps.MapFragmentWrapper {
             wrapperCallback = new com.google.android.gms.maps.OnMapReadyCallback() {
                 @Override
                 public void onMapReady(com.google.android.gms.maps.GoogleMap googleMap) {
-                    callback.onMapReady(GoogleMap.wrap(googleMap));
+                    callback.onMapReady(GoogleMap.MAPPER.wrap(googleMap));
                 }
             };
         }

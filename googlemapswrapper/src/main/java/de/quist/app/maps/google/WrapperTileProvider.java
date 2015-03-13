@@ -1,21 +1,19 @@
 package de.quist.app.maps.google;
 
-import com.google.android.gms.maps.model.TileProvider;
+import de.quist.app.maps.utils.Wrapper;
 
-class WrapperTileProvider implements com.google.android.gms.maps.model.TileProvider {
+class WrapperTileProvider extends Wrapper<de.quist.app.maps.model.TileProvider> implements com.google.android.gms.maps.model.TileProvider {
 
-    static de.quist.app.maps.model.TileProvider unwrap(TileProvider tileProvider) {
-        return tileProvider != null ? ((WrapperTileProvider)tileProvider).original : null;
-    }
+    static final Mapper<com.google.android.gms.maps.model.TileProvider, WrapperTileProvider, de.quist.app.maps.model.TileProvider> MAPPER = new DefaultMapper<com.google.android.gms.maps.model.TileProvider, WrapperTileProvider, de.quist.app.maps.model.TileProvider>() {
 
-    static TileProvider wrap(de.quist.app.maps.model.TileProvider tileProvider) {
-        return tileProvider != null ? new WrapperTileProvider(tileProvider) : null;
-    }
-
-    final de.quist.app.maps.model.TileProvider original;
+        @Override
+        public WrapperTileProvider createWrapper(de.quist.app.maps.model.TileProvider original) {
+            return original != null ? new WrapperTileProvider(original) : null;
+        }
+    };
 
     private WrapperTileProvider(de.quist.app.maps.model.TileProvider original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
@@ -23,23 +21,4 @@ class WrapperTileProvider implements com.google.android.gms.maps.model.TileProvi
         return Tile.unwrap(original.getTile(x, y, zoom));
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof WrapperTileProvider)) {
-            return false;
-        }
-
-        WrapperTileProvider other = (WrapperTileProvider)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

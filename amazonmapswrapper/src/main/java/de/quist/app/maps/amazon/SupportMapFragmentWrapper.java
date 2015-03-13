@@ -2,29 +2,30 @@ package de.quist.app.maps.amazon;
 
 import android.view.View;
 
+import com.amazon.geo.mapsv2.SupportMapFragment;
+
 import de.quist.app.maps.Map;
 import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.utils.Wrapper;
 
-class SupportMapFragmentWrapper implements MapFragmentWrapper {
+class SupportMapFragmentWrapper extends Wrapper<SupportMapFragment> implements MapFragmentWrapper {
 
-    public static com.amazon.geo.mapsv2.SupportMapFragment unwrap(SupportMapFragmentWrapper map) {
-        return map != null ? map.original : null;
-    }
+    static final Mapper<de.quist.app.maps.MapFragmentWrapper, SupportMapFragmentWrapper, com.amazon.geo.mapsv2.SupportMapFragment> MAPPER = new DefaultMapper<de.quist.app.maps.MapFragmentWrapper, SupportMapFragmentWrapper, com.amazon.geo.mapsv2.SupportMapFragment>() {
 
-    public static SupportMapFragmentWrapper wrap(com.amazon.geo.mapsv2.SupportMapFragment map) {
-        return map != null ? new SupportMapFragmentWrapper(map) : null;
-    }
+        @Override
+        public SupportMapFragmentWrapper createWrapper(SupportMapFragment original) {
+            return original != null ? new SupportMapFragmentWrapper(original) : null;
+        }
+    };
 
-    private final com.amazon.geo.mapsv2.SupportMapFragment original;
-
-    SupportMapFragmentWrapper(com.amazon.geo.mapsv2.SupportMapFragment original) {
-        this.original = original;
+    private SupportMapFragmentWrapper(com.amazon.geo.mapsv2.SupportMapFragment original) {
+        super(original);
     }
 
     @Override
     public Map getMap() {
-        return AmazonMap.wrap(original.getMap());
+        return AmazonMap.MAPPER.wrap(original.getMap());
     }
 
     @Override
@@ -34,7 +35,7 @@ class SupportMapFragmentWrapper implements MapFragmentWrapper {
             wrapperCallback = new com.amazon.geo.mapsv2.OnMapReadyCallback() {
                 @Override
                 public void onMapReady(com.amazon.geo.mapsv2.AmazonMap amazonMap) {
-                    callback.onMapReady(AmazonMap.wrap(amazonMap));
+                    callback.onMapReady(AmazonMap.MAPPER.wrap(amazonMap));
                 }
             };
         }

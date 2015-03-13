@@ -1,13 +1,13 @@
-package de.quist.app.maps.amazon;
+package de.quist.app.maps.utils;
 
 import java.util.Iterator;
 
-class MappingIterable<T, E> implements Iterable<E> {
+public class MappingIterable<T, E> implements Iterable<E> {
 
     private final Iterable<T> original;
     private final IMapper<T, E> mapper;
 
-    MappingIterable(Iterable<T> original, IMapper<T, E> mapper) {
+    public MappingIterable(Iterable<T> original, IMapper<T, E> mapper) {
         this.original = original;
         this.mapper = mapper;
     }

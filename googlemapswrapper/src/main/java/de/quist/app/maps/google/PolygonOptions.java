@@ -1,42 +1,42 @@
 package de.quist.app.maps.google;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class PolygonOptions implements de.quist.app.maps.model.PolygonOptions {
+import de.quist.app.maps.utils.MappingIterable;
+import de.quist.app.maps.utils.ParcelableWrapper;
+
+class PolygonOptions extends ParcelableWrapper<com.google.android.gms.maps.model.PolygonOptions> implements de.quist.app.maps.model.PolygonOptions {
 
     private static final MappingIterable.IMapper<de.quist.app.maps.model.LatLng,com.google.android.gms.maps.model.LatLng> POINT_UNWRAPPER = new MappingIterable.IMapper<de.quist.app.maps.model.LatLng, com.google.android.gms.maps.model.LatLng>() {
         @Override
         public com.google.android.gms.maps.model.LatLng map(de.quist.app.maps.model.LatLng item) {
-            return LatLng.unwrap(item);
+            return LatLng.MAPPER.unwrap(item);
         }
     };
 
-    static com.google.android.gms.maps.model.PolygonOptions unwrap(de.quist.app.maps.model.PolygonOptions polygonOptions) {
-        return polygonOptions != null ? ((PolygonOptions)polygonOptions).original : null;
-    }
+    static final Mapper<de.quist.app.maps.model.PolygonOptions, PolygonOptions, com.google.android.gms.maps.model.PolygonOptions> MAPPER = new DefaultMapper<de.quist.app.maps.model.PolygonOptions, PolygonOptions, com.google.android.gms.maps.model.PolygonOptions>() {
 
-    static PolygonOptions wrap(com.google.android.gms.maps.model.PolygonOptions polygonOptions) {
-        return polygonOptions != null ? new PolygonOptions(polygonOptions) : null;
-    }
-
-    final com.google.android.gms.maps.model.PolygonOptions original;
+        @Override
+        public PolygonOptions createWrapper(com.google.android.gms.maps.model.PolygonOptions original) {
+            return original != null ? new PolygonOptions(original) : null;
+        }
+    };
 
     private PolygonOptions(com.google.android.gms.maps.model.PolygonOptions original) {
-        this.original = original;
+        super(original);
     }
 
 
     @Override
     public de.quist.app.maps.model.PolygonOptions add(de.quist.app.maps.model.LatLng point) {
-        com.google.android.gms.maps.model.PolygonOptions ret = original.add(LatLng.unwrap(point));
+        com.google.android.gms.maps.model.PolygonOptions ret = original.add(LatLng.MAPPER.unwrap(point));
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -50,7 +50,7 @@ class PolygonOptions implements de.quist.app.maps.model.PolygonOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -61,7 +61,7 @@ class PolygonOptions implements de.quist.app.maps.model.PolygonOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -72,7 +72,7 @@ class PolygonOptions implements de.quist.app.maps.model.PolygonOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
 
     }
@@ -83,7 +83,7 @@ class PolygonOptions implements de.quist.app.maps.model.PolygonOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
 
     }
@@ -94,7 +94,7 @@ class PolygonOptions implements de.quist.app.maps.model.PolygonOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
 
     }
@@ -105,7 +105,7 @@ class PolygonOptions implements de.quist.app.maps.model.PolygonOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -115,7 +115,7 @@ class PolygonOptions implements de.quist.app.maps.model.PolygonOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -125,7 +125,7 @@ class PolygonOptions implements de.quist.app.maps.model.PolygonOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -135,7 +135,7 @@ class PolygonOptions implements de.quist.app.maps.model.PolygonOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -184,40 +184,10 @@ class PolygonOptions implements de.quist.app.maps.model.PolygonOptions {
         return original.isGeodesic();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Polygon)) {
-            return false;
-        }
-
-        Polygon other = (Polygon)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
-
-    @Override
-    public int describeContents() {
-        return original.describeContents();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        original.writeToParcel(dest, flags);
-    }
-
-    public static final Parcelable.Creator<PolygonOptions> CREATOR
-            = new Parcelable.Creator<PolygonOptions>() {
+    public static final Creator<PolygonOptions> CREATOR
+            = new Creator<PolygonOptions>() {
         public PolygonOptions createFromParcel(Parcel in) {
-            return PolygonOptions.wrap(com.google.android.gms.maps.model.PolygonOptions.CREATOR.dg(in));
+            return PolygonOptions.MAPPER.wrap(com.google.android.gms.maps.model.PolygonOptions.CREATOR.dg(in));
         }
 
         public PolygonOptions[] newArray(int size) {

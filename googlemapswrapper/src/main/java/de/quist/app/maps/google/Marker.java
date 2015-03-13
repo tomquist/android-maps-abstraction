@@ -1,19 +1,19 @@
 package de.quist.app.maps.google;
 
-class Marker implements de.quist.app.maps.model.Marker {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.google.android.gms.maps.model.Marker unwrap(de.quist.app.maps.model.Marker marker) {
-        return marker != null ? ((Marker)marker).original : null;
-    }
+class Marker extends Wrapper<com.google.android.gms.maps.model.Marker> implements de.quist.app.maps.model.Marker {
 
-    static de.quist.app.maps.model.Marker wrap(com.google.android.gms.maps.model.Marker marker) {
-        return marker != null ? new Marker(marker) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.Marker, Marker, com.google.android.gms.maps.model.Marker> MAPPER = new DefaultMapper<de.quist.app.maps.model.Marker, Marker, com.google.android.gms.maps.model.Marker>() {
 
-    final com.google.android.gms.maps.model.Marker original;
+        @Override
+        public Marker createWrapper(com.google.android.gms.maps.model.Marker original) {
+            return original != null ? new Marker(original) : null;
+        }
+    };
 
     private Marker(com.google.android.gms.maps.model.Marker original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
@@ -28,17 +28,17 @@ class Marker implements de.quist.app.maps.model.Marker {
 
     @Override
     public void setPosition(de.quist.app.maps.model.LatLng latLng) {
-        original.setPosition(LatLng.unwrap(latLng));
+        original.setPosition(LatLng.MAPPER.unwrap(latLng));
     }
 
     @Override
     public de.quist.app.maps.model.LatLng getPosition() {
-        return LatLng.wrap(original.getPosition());
+        return LatLng.MAPPER.wrap(original.getPosition());
     }
 
     @Override
     public void setIcon(de.quist.app.maps.model.BitmapDescriptor icon) {
-        original.setIcon(BitmapDescriptor.unwrap(icon));
+        original.setIcon(BitmapDescriptor.MAPPER.unwrap(icon));
     }
 
     @Override
@@ -136,23 +136,4 @@ class Marker implements de.quist.app.maps.model.Marker {
         return original.getAlpha();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Marker)) {
-            return false;
-        }
-
-        Marker other = (Marker)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

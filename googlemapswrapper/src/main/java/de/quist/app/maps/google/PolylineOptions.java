@@ -1,40 +1,40 @@
 package de.quist.app.maps.google;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.util.List;
 
-class PolylineOptions implements de.quist.app.maps.model.PolylineOptions {
+import de.quist.app.maps.utils.MappingIterable;
+import de.quist.app.maps.utils.ParcelableWrapper;
+
+class PolylineOptions extends ParcelableWrapper<com.google.android.gms.maps.model.PolylineOptions> implements de.quist.app.maps.model.PolylineOptions {
 
     private static final MappingIterable.IMapper<de.quist.app.maps.model.LatLng,com.google.android.gms.maps.model.LatLng> POINT_UNWRAPPER = new MappingIterable.IMapper<de.quist.app.maps.model.LatLng, com.google.android.gms.maps.model.LatLng>() {
         @Override
         public com.google.android.gms.maps.model.LatLng map(de.quist.app.maps.model.LatLng item) {
-            return LatLng.unwrap(item);
+            return LatLng.MAPPER.unwrap(item);
         }
     };
 
-    static com.google.android.gms.maps.model.PolylineOptions unwrap(de.quist.app.maps.model.PolylineOptions polylineOptions) {
-        return polylineOptions != null ? ((PolylineOptions)polylineOptions).original : null;
-    }
+    static final Mapper<de.quist.app.maps.model.PolylineOptions, PolylineOptions, com.google.android.gms.maps.model.PolylineOptions> MAPPER = new DefaultMapper<de.quist.app.maps.model.PolylineOptions, PolylineOptions, com.google.android.gms.maps.model.PolylineOptions>() {
 
-    static PolylineOptions wrap(com.google.android.gms.maps.model.PolylineOptions polylineOptions) {
-        return polylineOptions != null ? new PolylineOptions(polylineOptions) : null;
-    }
-
-    final com.google.android.gms.maps.model.PolylineOptions original;
+        @Override
+        public PolylineOptions createWrapper(com.google.android.gms.maps.model.PolylineOptions original) {
+            return original != null ? new PolylineOptions(original) : null;
+        }
+    };
 
     private PolylineOptions(com.google.android.gms.maps.model.PolylineOptions original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
     public de.quist.app.maps.model.PolylineOptions add(de.quist.app.maps.model.LatLng point) {
-        com.google.android.gms.maps.model.PolylineOptions ret = original.add(LatLng.unwrap(point));
+        com.google.android.gms.maps.model.PolylineOptions ret = original.add(LatLng.MAPPER.unwrap(point));
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -48,7 +48,7 @@ class PolylineOptions implements de.quist.app.maps.model.PolylineOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -59,7 +59,7 @@ class PolylineOptions implements de.quist.app.maps.model.PolylineOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -69,7 +69,7 @@ class PolylineOptions implements de.quist.app.maps.model.PolylineOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
 
     }
@@ -80,7 +80,7 @@ class PolylineOptions implements de.quist.app.maps.model.PolylineOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
 
     }
@@ -91,7 +91,7 @@ class PolylineOptions implements de.quist.app.maps.model.PolylineOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -101,7 +101,7 @@ class PolylineOptions implements de.quist.app.maps.model.PolylineOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -111,7 +111,7 @@ class PolylineOptions implements de.quist.app.maps.model.PolylineOptions {
         if (ret == original) {
             return this;
         } else {
-            return wrap(ret);
+            return MAPPER.wrap(ret);
         }
     }
 
@@ -145,40 +145,10 @@ class PolylineOptions implements de.quist.app.maps.model.PolylineOptions {
         return original.isGeodesic();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof PolylineOptions)) {
-            return false;
-        }
-
-        PolylineOptions other = (PolylineOptions)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
-
-    @Override
-    public int describeContents() {
-        return original.describeContents();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        original.writeToParcel(dest, flags);
-    }
-
-    public static final Parcelable.Creator<PolylineOptions> CREATOR
-            = new Parcelable.Creator<PolylineOptions>() {
+    public static final Creator<PolylineOptions> CREATOR
+            = new Creator<PolylineOptions>() {
         public PolylineOptions createFromParcel(Parcel in) {
-            return PolylineOptions.wrap(com.google.android.gms.maps.model.PolylineOptions.CREATOR.dh(in));
+            return PolylineOptions.MAPPER.wrap(com.google.android.gms.maps.model.PolylineOptions.CREATOR.dh(in));
         }
 
         public PolylineOptions[] newArray(int size) {

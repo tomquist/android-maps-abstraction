@@ -1,63 +1,44 @@
 package de.quist.app.maps.google;
 
-class VisibleRegion implements de.quist.app.maps.model.VisibleRegion {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.google.android.gms.maps.model.VisibleRegion unwrap(de.quist.app.maps.model.VisibleRegion visibleRegion) {
-        return visibleRegion != null ? ((VisibleRegion)visibleRegion).original : null;
-    }
+class VisibleRegion extends Wrapper<com.google.android.gms.maps.model.VisibleRegion> implements de.quist.app.maps.model.VisibleRegion {
 
-    static de.quist.app.maps.model.VisibleRegion wrap(com.google.android.gms.maps.model.VisibleRegion visibleRegion) {
-        return visibleRegion != null ? new VisibleRegion(visibleRegion) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.VisibleRegion, VisibleRegion, com.google.android.gms.maps.model.VisibleRegion> MAPPER = new DefaultMapper<de.quist.app.maps.model.VisibleRegion, VisibleRegion, com.google.android.gms.maps.model.VisibleRegion>() {
 
-    final com.google.android.gms.maps.model.VisibleRegion original;
+        @Override
+        public VisibleRegion createWrapper(com.google.android.gms.maps.model.VisibleRegion original) {
+            return original != null ? new VisibleRegion(original) : null;
+        }
+    };
 
     private VisibleRegion(com.google.android.gms.maps.model.VisibleRegion original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
     public de.quist.app.maps.model.LatLng nearLeft() {
-        return LatLng.wrap(original.nearLeft);
+        return LatLng.MAPPER.wrap(original.nearLeft);
     }
 
     @Override
     public de.quist.app.maps.model.LatLng nearRight() {
-        return LatLng.wrap(original.nearRight);
+        return LatLng.MAPPER.wrap(original.nearRight);
     }
 
     @Override
     public de.quist.app.maps.model.LatLng farLeft() {
-        return LatLng.wrap(original.farLeft);
+        return LatLng.MAPPER.wrap(original.farLeft);
     }
 
     @Override
     public de.quist.app.maps.model.LatLng farRight() {
-        return LatLng.wrap(original.farRight);
+        return LatLng.MAPPER.wrap(original.farRight);
     }
 
     @Override
     public de.quist.app.maps.model.LatLngBounds latLngBounds() {
-        return LatLngBounds.wrap(original.latLngBounds);
+        return LatLngBounds.MAPPER.wrap(original.latLngBounds);
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof VisibleRegion)) {
-            return false;
-        }
-
-        VisibleRegion other = (VisibleRegion)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

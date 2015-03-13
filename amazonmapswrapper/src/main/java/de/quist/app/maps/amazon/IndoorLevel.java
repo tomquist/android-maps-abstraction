@@ -1,19 +1,19 @@
 package de.quist.app.maps.amazon;
 
-class IndoorLevel implements de.quist.app.maps.model.IndoorLevel {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.amazon.geo.mapsv2.model.IndoorLevel unwrap(de.quist.app.maps.model.IndoorLevel indoorLevel) {
-        return indoorLevel != null ? ((IndoorLevel)indoorLevel).original : null;
-    }
+class IndoorLevel extends Wrapper<com.amazon.geo.mapsv2.model.IndoorLevel> implements de.quist.app.maps.model.IndoorLevel {
 
-    static de.quist.app.maps.model.IndoorLevel wrap(com.amazon.geo.mapsv2.model.IndoorLevel indoorLevel) {
-        return indoorLevel != null ? new IndoorLevel(indoorLevel) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.IndoorLevel, IndoorLevel, com.amazon.geo.mapsv2.model.IndoorLevel> MAPPER = new DefaultMapper<de.quist.app.maps.model.IndoorLevel, IndoorLevel, com.amazon.geo.mapsv2.model.IndoorLevel>() {
 
-    final com.amazon.geo.mapsv2.model.IndoorLevel original;
+        @Override
+        public IndoorLevel createWrapper(com.amazon.geo.mapsv2.model.IndoorLevel original) {
+            return original != null ? new IndoorLevel(original) : null;
+        }
+    };
 
     private IndoorLevel(com.amazon.geo.mapsv2.model.IndoorLevel original) {
-        this.original = original;
+        super(original);
     }
 
     @Override
@@ -31,23 +31,4 @@ class IndoorLevel implements de.quist.app.maps.model.IndoorLevel {
         original.activate();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof IndoorLevel)) {
-            return false;
-        }
-
-        IndoorLevel other = (IndoorLevel)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

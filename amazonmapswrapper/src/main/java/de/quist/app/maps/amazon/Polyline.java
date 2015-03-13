@@ -2,20 +2,20 @@ package de.quist.app.maps.amazon;
 
 import java.util.List;
 
-class Polyline implements de.quist.app.maps.model.Polyline {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.amazon.geo.mapsv2.model.Polyline unwrap(de.quist.app.maps.model.Polyline polyline) {
-        return polyline != null ? ((Polyline)polyline).original : null;
-    }
+class Polyline extends Wrapper<com.amazon.geo.mapsv2.model.Polyline> implements de.quist.app.maps.model.Polyline {
 
-    static de.quist.app.maps.model.Polyline wrap(com.amazon.geo.mapsv2.model.Polyline polyline) {
-        return polyline != null ? new Polyline(polyline) : null;
-    }
+    static final Mapper<de.quist.app.maps.model.Polyline, Polyline, com.amazon.geo.mapsv2.model.Polyline> MAPPER = new DefaultMapper<de.quist.app.maps.model.Polyline, Polyline, com.amazon.geo.mapsv2.model.Polyline>() {
 
-    final com.amazon.geo.mapsv2.model.Polyline original;
+        @Override
+        public Polyline createWrapper(com.amazon.geo.mapsv2.model.Polyline original) {
+            return original != null ? new Polyline(original) : null;
+        }
+    };
 
     private Polyline(com.amazon.geo.mapsv2.model.Polyline original) {
-        this.original = original;
+        super(original);
     }
     
     @Override
@@ -108,23 +108,4 @@ class Polyline implements de.quist.app.maps.model.Polyline {
         return original.isGeodesic();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Polyline)) {
-            return false;
-        }
-
-        Polyline other = (Polyline)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }

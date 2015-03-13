@@ -2,28 +2,29 @@ package de.quist.app.maps.amazon;
 
 import android.view.View;
 
+import com.amazon.geo.mapsv2.MapFragment;
+
 import de.quist.app.maps.Map;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.utils.Wrapper;
 
-class MapFragmentWrapper implements de.quist.app.maps.MapFragmentWrapper {
+class MapFragmentWrapper extends Wrapper<MapFragment> implements de.quist.app.maps.MapFragmentWrapper {
 
-    public static com.amazon.geo.mapsv2.MapFragment unwrap(de.quist.app.maps.amazon.MapFragmentWrapper map) {
-        return map != null ? map.original : null;
-    }
+    static final Mapper<de.quist.app.maps.MapFragmentWrapper, MapFragmentWrapper, com.amazon.geo.mapsv2.MapFragment> MAPPER = new DefaultMapper<de.quist.app.maps.MapFragmentWrapper, MapFragmentWrapper, com.amazon.geo.mapsv2.MapFragment>() {
 
-    public static de.quist.app.maps.amazon.MapFragmentWrapper wrap(com.amazon.geo.mapsv2.MapFragment map) {
-        return map != null ? new de.quist.app.maps.amazon.MapFragmentWrapper(map) : null;
-    }
+        @Override
+        public MapFragmentWrapper createWrapper(MapFragment original) {
+            return original != null ? new MapFragmentWrapper(original) : null;
+        }
+    };
 
-    private final com.amazon.geo.mapsv2.MapFragment original;
-
-    MapFragmentWrapper(com.amazon.geo.mapsv2.MapFragment original) {
-        this.original = original;
+    private MapFragmentWrapper(com.amazon.geo.mapsv2.MapFragment original) {
+        super(original);
     }
 
     @Override
     public Map getMap() {
-        return AmazonMap.wrap(original.getMap());
+        return AmazonMap.MAPPER.wrap(original.getMap());
     }
 
     @Override
@@ -32,8 +33,8 @@ class MapFragmentWrapper implements de.quist.app.maps.MapFragmentWrapper {
         if (callback != null) {
             wrapperCallback = new com.amazon.geo.mapsv2.OnMapReadyCallback() {
                 @Override
-                public void onMapReady(com.amazon.geo.mapsv2.AmazonMap googleMap) {
-                    callback.onMapReady(AmazonMap.wrap(googleMap));
+                public void onMapReady(com.amazon.geo.mapsv2.AmazonMap amazonMap) {
+                    callback.onMapReady(AmazonMap.MAPPER.wrap(amazonMap));
                 }
             };
         }

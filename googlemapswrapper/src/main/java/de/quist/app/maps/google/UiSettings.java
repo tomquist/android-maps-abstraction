@@ -1,19 +1,19 @@
 package de.quist.app.maps.google;
 
-class UiSettings implements de.quist.app.maps.UiSettings {
+import de.quist.app.maps.utils.Wrapper;
 
-    static com.google.android.gms.maps.UiSettings unwrap(de.quist.app.maps.UiSettings uiSettings) {
-        return uiSettings != null ? ((UiSettings)uiSettings).original : null;
-    }
+class UiSettings extends Wrapper<com.google.android.gms.maps.UiSettings> implements de.quist.app.maps.UiSettings {
 
-    static de.quist.app.maps.UiSettings wrap(com.google.android.gms.maps.UiSettings uiSettings) {
-        return uiSettings != null ? new UiSettings(uiSettings) : null;
-    }
+    static final Mapper<de.quist.app.maps.UiSettings, UiSettings, com.google.android.gms.maps.UiSettings> MAPPER = new DefaultMapper<de.quist.app.maps.UiSettings, UiSettings, com.google.android.gms.maps.UiSettings>() {
 
-    final com.google.android.gms.maps.UiSettings original;
+        @Override
+        public UiSettings createWrapper(com.google.android.gms.maps.UiSettings original) {
+            return original != null ? new UiSettings(original) : null;
+        }
+    };
 
     private UiSettings(com.google.android.gms.maps.UiSettings original) {
-        this.original = original;
+        super(original);
     }
     
     @Override
@@ -111,23 +111,4 @@ class UiSettings implements de.quist.app.maps.UiSettings {
         return original.isMapToolbarEnabled();
     }
 
-    @Override
-    public int hashCode() {
-        return original.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof UiSettings)) {
-            return false;
-        }
-
-        UiSettings other = (UiSettings)o;
-        return original.equals(other.original);
-    }
-
-    @Override
-    public String toString() {
-        return original.toString();
-    }
 }
