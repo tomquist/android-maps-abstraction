@@ -64,11 +64,11 @@ public class MarkerDemoActivity extends FragmentActivity implements
         OnSeekBarChangeListener,
         OnMapReadyCallback {
 
-    private static final LatLng BRISBANE = BuildConfig.MAP_BINDING.latLng(-27.47093, 153.0235);
-    private static final LatLng MELBOURNE = BuildConfig.MAP_BINDING.latLng(-37.81319, 144.96298);
-    private static final LatLng SYDNEY = BuildConfig.MAP_BINDING.latLng(-33.87365, 151.20689);
-    private static final LatLng ADELAIDE = BuildConfig.MAP_BINDING.latLng(-34.92873, 138.59995);
-    private static final LatLng PERTH = BuildConfig.MAP_BINDING.latLng(-31.952854, 115.857342);
+    private static final LatLng BRISBANE = BuildConfig.MAP_BINDING.newLatLng(-27.47093, 153.0235);
+    private static final LatLng MELBOURNE = BuildConfig.MAP_BINDING.newLatLng(-37.81319, 144.96298);
+    private static final LatLng SYDNEY = BuildConfig.MAP_BINDING.newLatLng(-33.87365, 151.20689);
+    private static final LatLng ADELAIDE = BuildConfig.MAP_BINDING.newLatLng(-34.92873, 138.59995);
+    private static final LatLng PERTH = BuildConfig.MAP_BINDING.newLatLng(-31.952854, 115.857342);
 
     /** Demonstrates customizing the info window and/or its contents. */
     class CustomInfoWindowAdapter implements InfoWindowAdapter {
@@ -249,14 +249,14 @@ public class MarkerDemoActivity extends FragmentActivity implements
 
     private void addMarkersToMap() {
         // Uses a colored icon.
-        mBrisbane = mMap.addMarker(BuildConfig.MAP_BINDING.markerOptions()
+        mBrisbane = mMap.addMarker(BuildConfig.MAP_BINDING.newMarkerOptions()
                 .position(BRISBANE)
                 .title("Brisbane")
                 .snippet("Population: 2,074,200")
                 .icon(BuildConfig.MAP_BINDING.bitmapDescriptorFactory().defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
         // Uses a custom icon with the info window popping out of the center of the icon.
-        mSydney = mMap.addMarker(BuildConfig.MAP_BINDING.markerOptions()
+        mSydney = mMap.addMarker(BuildConfig.MAP_BINDING.newMarkerOptions()
                 .position(SYDNEY)
                 .title("Sydney")
                 .snippet("Population: 4,627,300")
@@ -264,18 +264,18 @@ public class MarkerDemoActivity extends FragmentActivity implements
                 .infoWindowAnchor(0.5f, 0.5f));
 
         // Creates a draggable marker. Long press to drag.
-        mMelbourne = mMap.addMarker(BuildConfig.MAP_BINDING.markerOptions()
+        mMelbourne = mMap.addMarker(BuildConfig.MAP_BINDING.newMarkerOptions()
                 .position(MELBOURNE)
                 .title("Melbourne")
                 .snippet("Population: 4,137,400")
                 .draggable(true));
 
         // A few more markers for good measure.
-        mPerth = mMap.addMarker(BuildConfig.MAP_BINDING.markerOptions()
+        mPerth = mMap.addMarker(BuildConfig.MAP_BINDING.newMarkerOptions()
                 .position(PERTH)
                 .title("Perth")
                 .snippet("Population: 1,738,800"));
-        mAdelaide = mMap.addMarker(BuildConfig.MAP_BINDING.markerOptions()
+        mAdelaide = mMap.addMarker(BuildConfig.MAP_BINDING.newMarkerOptions()
                 .position(ADELAIDE)
                 .title("Adelaide")
                 .snippet("Population: 1,213,000"));
@@ -287,8 +287,8 @@ public class MarkerDemoActivity extends FragmentActivity implements
 
         int numMarkersInRainbow = 12;
         for (int i = 0; i < numMarkersInRainbow; i++) {
-            mMarkerRainbow.add(mMap.addMarker(BuildConfig.MAP_BINDING.markerOptions()
-                    .position(BuildConfig.MAP_BINDING.latLng(
+            mMarkerRainbow.add(mMap.addMarker(BuildConfig.MAP_BINDING.newMarkerOptions()
+                    .position(BuildConfig.MAP_BINDING.newLatLng(
                             -30 + 10 * Math.sin(i * Math.PI / (numMarkersInRainbow - 1)),
                             135 - 10 * Math.cos(i * Math.PI / (numMarkersInRainbow - 1))))
                     .title("Marker " + i)

@@ -39,7 +39,7 @@ public class GroundOverlayDemoActivity extends FragmentActivity
         implements OnSeekBarChangeListener, OnMapReadyCallback {
 
     private static final int TRANSPARENCY_MAX = 100;
-    private static final LatLng NEWARK = BuildConfig.MAP_BINDING.latLng(40.714086, -74.228697);
+    private static final LatLng NEWARK = BuildConfig.MAP_BINDING.newLatLng(40.714086, -74.228697);
 
     private final List<BitmapDescriptor> mImages = new ArrayList<BitmapDescriptor>();
 
@@ -71,7 +71,7 @@ public class GroundOverlayDemoActivity extends FragmentActivity
         mImages.add(BuildConfig.MAP_BINDING.bitmapDescriptorFactory().fromResource(R.drawable.newark_prudential_sunny));
 
         mCurrentEntry = 0;
-        mGroundOverlay = map.addGroundOverlay(BuildConfig.MAP_BINDING.groundOverlayOptions()
+        mGroundOverlay = map.addGroundOverlay(BuildConfig.MAP_BINDING.newGroundOverlayOptions()
                 .image(mImages.get(mCurrentEntry)).anchor(0, 1)
                 .position(NEWARK, 8600f, 6500f));
 

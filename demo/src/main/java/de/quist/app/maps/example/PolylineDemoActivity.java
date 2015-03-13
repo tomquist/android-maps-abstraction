@@ -35,15 +35,15 @@ import de.quist.app.maps.model.PolylineOptions;
 public class PolylineDemoActivity extends FragmentActivity
         implements OnSeekBarChangeListener, OnMapReadyCallback {
 
-    private static final LatLng MELBOURNE = BuildConfig.MAP_BINDING.latLng(-37.81319, 144.96298);
-    private static final LatLng SYDNEY = BuildConfig.MAP_BINDING.latLng(-33.87365, 151.20689);
-    private static final LatLng ADELAIDE = BuildConfig.MAP_BINDING.latLng(-34.92873, 138.59995);
-    private static final LatLng PERTH = BuildConfig.MAP_BINDING.latLng(-31.95285, 115.85734);
+    private static final LatLng MELBOURNE = BuildConfig.MAP_BINDING.newLatLng(-37.81319, 144.96298);
+    private static final LatLng SYDNEY = BuildConfig.MAP_BINDING.newLatLng(-33.87365, 151.20689);
+    private static final LatLng ADELAIDE = BuildConfig.MAP_BINDING.newLatLng(-34.92873, 138.59995);
+    private static final LatLng PERTH = BuildConfig.MAP_BINDING.newLatLng(-31.95285, 115.85734);
 
-    private static final LatLng LHR = BuildConfig.MAP_BINDING.latLng(51.471547, -0.460052);
-    private static final LatLng LAX = BuildConfig.MAP_BINDING.latLng(33.936524, -118.377686);
-    private static final LatLng JFK = BuildConfig.MAP_BINDING.latLng(40.641051, -73.777485);
-    private static final LatLng AKL = BuildConfig.MAP_BINDING.latLng(-37.006254, 174.783018);
+    private static final LatLng LHR = BuildConfig.MAP_BINDING.newLatLng(51.471547, -0.460052);
+    private static final LatLng LAX = BuildConfig.MAP_BINDING.newLatLng(33.936524, -118.377686);
+    private static final LatLng JFK = BuildConfig.MAP_BINDING.newLatLng(40.641051, -73.777485);
+    private static final LatLng AKL = BuildConfig.MAP_BINDING.newLatLng(-37.006254, 174.783018);
 
     private static final int WIDTH_MAX = 50;
     private static final int HUE_MAX = 360;
@@ -83,11 +83,11 @@ public class PolylineDemoActivity extends FragmentActivity
         map.setContentDescription("Google Map with polylines.");
 
         // A simple polyline with the default options from Melbourne-Adelaide-Perth.
-        map.addPolyline((BuildConfig.MAP_BINDING.polylineOptions())
+        map.addPolyline((BuildConfig.MAP_BINDING.newPolylineOptions())
                 .add(MELBOURNE, ADELAIDE, PERTH));
 
         // A geodesic polyline that goes around the world.
-        map.addPolyline((BuildConfig.MAP_BINDING.polylineOptions())
+        map.addPolyline((BuildConfig.MAP_BINDING.newPolylineOptions())
                 .add(LHR, AKL, LAX, JFK, LHR)
                 .width(5)
                 .color(Color.BLUE)
@@ -95,12 +95,12 @@ public class PolylineDemoActivity extends FragmentActivity
 
         // Rectangle centered at Sydney.  This polyline will be mutable.
         int radius = 5;
-        PolylineOptions options = BuildConfig.MAP_BINDING.polylineOptions()
-                .add(BuildConfig.MAP_BINDING.latLng(SYDNEY.latitude() + radius, SYDNEY.longitude() + radius))
-                .add(BuildConfig.MAP_BINDING.latLng(SYDNEY.latitude() + radius, SYDNEY.longitude() - radius))
-                .add(BuildConfig.MAP_BINDING.latLng(SYDNEY.latitude() - radius, SYDNEY.longitude() - radius))
-                .add(BuildConfig.MAP_BINDING.latLng(SYDNEY.latitude() - radius, SYDNEY.longitude() + radius))
-                .add(BuildConfig.MAP_BINDING.latLng(SYDNEY.latitude() + radius, SYDNEY.longitude() + radius));
+        PolylineOptions options = BuildConfig.MAP_BINDING.newPolylineOptions()
+                .add(BuildConfig.MAP_BINDING.newLatLng(SYDNEY.latitude() + radius, SYDNEY.longitude() + radius))
+                .add(BuildConfig.MAP_BINDING.newLatLng(SYDNEY.latitude() + radius, SYDNEY.longitude() - radius))
+                .add(BuildConfig.MAP_BINDING.newLatLng(SYDNEY.latitude() - radius, SYDNEY.longitude() - radius))
+                .add(BuildConfig.MAP_BINDING.newLatLng(SYDNEY.latitude() - radius, SYDNEY.longitude() + radius))
+                .add(BuildConfig.MAP_BINDING.newLatLng(SYDNEY.latitude() + radius, SYDNEY.longitude() + radius));
         int color = Color.HSVToColor(
                 mAlphaBar.getProgress(), new float[] {mColorBar.getProgress(), 1, 1});
         mMutablePolyline = map.addPolyline(options

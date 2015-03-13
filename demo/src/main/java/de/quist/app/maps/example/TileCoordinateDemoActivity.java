@@ -33,7 +33,7 @@ public class TileCoordinateDemoActivity extends FragmentActivity implements OnMa
     @Override
     public void onMapReady(Map map) {
         TileProvider coordTileProvider = new CoordTileProvider(this.getApplicationContext());
-        map.addTileOverlay(BuildConfig.MAP_BINDING.tileOverlayOptions().tileProvider(coordTileProvider));
+        map.addTileOverlay(BuildConfig.MAP_BINDING.newTileOverlayOptions().tileProvider(coordTileProvider));
     }
 
     private static class CoordTileProvider implements TileProvider {
@@ -61,7 +61,7 @@ public class TileCoordinateDemoActivity extends FragmentActivity implements OnMa
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             coordTile.compress(Bitmap.CompressFormat.PNG, 0, stream);
             byte[] bitmapData = stream.toByteArray();
-            return BuildConfig.MAP_BINDING.tile((int) (TILE_SIZE_DP * mScaleFactor),
+            return BuildConfig.MAP_BINDING.newTile((int) (TILE_SIZE_DP * mScaleFactor),
                     (int) (TILE_SIZE_DP * mScaleFactor), bitmapData);
         }
 

@@ -30,7 +30,7 @@ public class GoogleMapsBinding implements MapsBinding {
     }
 
     @Override
-    public de.quist.app.maps.model.CameraPosition cameraPosition(de.quist.app.maps.model.LatLng target, float zoom, float tilt, float bearing) {
+    public de.quist.app.maps.model.CameraPosition newCameraPosition(de.quist.app.maps.model.LatLng target, float zoom, float tilt, float bearing) {
         return CameraPosition.MAPPER.wrap(new com.google.android.gms.maps.model.CameraPosition(LatLng.MAPPER.unwrap(target), zoom, tilt, bearing));
     }
 
@@ -50,22 +50,22 @@ public class GoogleMapsBinding implements MapsBinding {
     }
 
     @Override
-    public de.quist.app.maps.model.CircleOptions circleOptions() {
+    public de.quist.app.maps.model.CircleOptions newCircleOptions() {
         return CircleOptions.MAPPER.wrap(new com.google.android.gms.maps.model.CircleOptions());
     }
 
     @Override
-    public de.quist.app.maps.model.GroundOverlayOptions groundOverlayOptions() {
+    public de.quist.app.maps.model.GroundOverlayOptions newGroundOverlayOptions() {
         return GroundOverlayOptions.MAPPER.wrap(new com.google.android.gms.maps.model.GroundOverlayOptions());
     }
 
     @Override
-    public de.quist.app.maps.model.LatLng latLng(double latitude, double longitude) {
+    public de.quist.app.maps.model.LatLng newLatLng(double latitude, double longitude) {
         return LatLng.MAPPER.wrap(new com.google.android.gms.maps.model.LatLng(latitude, longitude));
     }
 
     @Override
-    public de.quist.app.maps.model.LatLngBounds latLngBounds(de.quist.app.maps.model.LatLng southwest, de.quist.app.maps.model.LatLng northeast) {
+    public de.quist.app.maps.model.LatLngBounds newLatLngBounds(de.quist.app.maps.model.LatLng southwest, de.quist.app.maps.model.LatLng northeast) {
         return LatLngBounds.MAPPER.wrap(new com.google.android.gms.maps.model.LatLngBounds(LatLng.MAPPER.unwrap(southwest), LatLng.MAPPER.unwrap(northeast)));
     }
 
@@ -75,27 +75,27 @@ public class GoogleMapsBinding implements MapsBinding {
     }
 
     @Override
-    public de.quist.app.maps.model.MarkerOptions markerOptions() {
+    public de.quist.app.maps.model.MarkerOptions newMarkerOptions() {
         return MarkerOptions.MAPPER.wrap(new com.google.android.gms.maps.model.MarkerOptions());
     }
 
     @Override
-    public de.quist.app.maps.model.PolygonOptions polygonOptions() {
+    public de.quist.app.maps.model.PolygonOptions newPolygonOptions() {
         return PolygonOptions.MAPPER.wrap(new com.google.android.gms.maps.model.PolygonOptions());
     }
 
     @Override
-    public de.quist.app.maps.model.PolylineOptions polylineOptions() {
+    public de.quist.app.maps.model.PolylineOptions newPolylineOptions() {
         return PolylineOptions.MAPPER.wrap(new com.google.android.gms.maps.model.PolylineOptions());
     }
 
     @Override
-    public de.quist.app.maps.model.TileOverlayOptions tileOverlayOptions() {
+    public de.quist.app.maps.model.TileOverlayOptions newTileOverlayOptions() {
         return TileOverlayOptions.MAPPER.wrap(new com.google.android.gms.maps.model.TileOverlayOptions());
     }
 
     @Override
-    public de.quist.app.maps.model.Tile tile(int width, int height, byte[] data) {
+    public de.quist.app.maps.model.Tile newTile(int width, int height, byte[] data) {
         return Tile.MAPPER.wrap(new com.google.android.gms.maps.model.Tile(width, height, data));
     }
 
@@ -105,7 +105,7 @@ public class GoogleMapsBinding implements MapsBinding {
     }
 
     @Override
-    public de.quist.app.maps.model.VisibleRegion visibleRegion(de.quist.app.maps.model.LatLng nearLeft, de.quist.app.maps.model.LatLng nearRight, de.quist.app.maps.model.LatLng farLeft, de.quist.app.maps.model.LatLng farRight, de.quist.app.maps.model.LatLngBounds latLngBounds) {
+    public de.quist.app.maps.model.VisibleRegion newVisibleRegion(de.quist.app.maps.model.LatLng nearLeft, de.quist.app.maps.model.LatLng nearRight, de.quist.app.maps.model.LatLng farLeft, de.quist.app.maps.model.LatLng farRight, de.quist.app.maps.model.LatLngBounds latLngBounds) {
         return VisibleRegion.MAPPER.wrap(new com.google.android.gms.maps.model.VisibleRegion(LatLng.MAPPER.unwrap(nearLeft), LatLng.MAPPER.unwrap(nearRight), LatLng.MAPPER.unwrap(farLeft), LatLng.MAPPER.unwrap(farRight), LatLngBounds.MAPPER.unwrap(latLngBounds)));
     }
 
@@ -163,7 +163,7 @@ public class GoogleMapsBinding implements MapsBinding {
     }
 
     @Override
-    public TileProvider urlTileProvider(int width, int height, final UrlTileProvider tileProvider) {
+    public TileProvider newUrlTileProvider(int width, int height, final UrlTileProvider tileProvider) {
         return de.quist.app.maps.google.TileProvider.MAPPER.wrap(new com.google.android.gms.maps.model.UrlTileProvider(width, height) {
 
             @Override

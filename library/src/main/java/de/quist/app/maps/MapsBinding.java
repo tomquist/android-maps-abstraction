@@ -23,7 +23,7 @@ public interface MapsBinding {
 
     CameraUpdateFactory cameraUpdateFactory();
 
-    CameraPosition cameraPosition(LatLng target, float zoom, float tilt, float bearing);
+    CameraPosition newCameraPosition(LatLng target, float zoom, float tilt, float bearing);
 
     CameraPosition cameraPositionFromLatLngZoom(LatLng target, float zoom);
 
@@ -31,29 +31,29 @@ public interface MapsBinding {
 
     CameraPosition.IBuilder cameraPositionBuilder(CameraPosition camera);
 
-    CircleOptions circleOptions();
+    CircleOptions newCircleOptions();
 
-    GroundOverlayOptions groundOverlayOptions();
+    GroundOverlayOptions newGroundOverlayOptions();
 
-    LatLng latLng(double latitude, double longitude);
+    LatLng newLatLng(double latitude, double longitude);
 
-    LatLngBounds latLngBounds(LatLng southwest, LatLng northeast);
+    LatLngBounds newLatLngBounds(LatLng southwest, LatLng northeast);
 
     LatLngBounds.IBuilder latLngBoundsBuilder();
 
-    MarkerOptions markerOptions();
+    MarkerOptions newMarkerOptions();
 
-    PolygonOptions polygonOptions();
+    PolygonOptions newPolygonOptions();
 
-    PolylineOptions polylineOptions();
+    PolylineOptions newPolylineOptions();
 
-    TileOverlayOptions tileOverlayOptions();
+    TileOverlayOptions newTileOverlayOptions();
 
-    Tile tile(int width, int height, byte[] data);
+    Tile newTile(int width, int height, byte[] data);
 
     Tile noTile();
 
-    VisibleRegion visibleRegion(LatLng nearLeft, LatLng nearRight, LatLng farLeft, LatLng farRight, LatLngBounds latLngBounds);
+    VisibleRegion newVisibleRegion(LatLng nearLeft, LatLng nearRight, LatLng farLeft, LatLng farRight, LatLngBounds latLngBounds);
 
     BitmapDescriptorFactory bitmapDescriptorFactory();
 
@@ -78,6 +78,6 @@ public interface MapsBinding {
 
     View newMapView(Context context, MapOptions mapOptions);
 
-    TileProvider urlTileProvider(int width, int height, UrlTileProvider tileProvider);
+    TileProvider newUrlTileProvider(int width, int height, UrlTileProvider tileProvider);
 
 }

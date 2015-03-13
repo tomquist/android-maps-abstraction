@@ -43,6 +43,6 @@ public class BasicMapDemoActivity extends FragmentActivity implements OnMapReady
      */
     @Override
     public void onMapReady(Map map) {
-        map.addMarker(BuildConfig.MAP_BINDING.markerOptions().position(BuildConfig.MAP_BINDING.latLng(0, 0)).title("Marker"));
+        map.addMarker(BuildConfig.MAP_BINDING.newMarkerOptions().position(BuildConfig.MAP_BINDING.newLatLng(0, 0)).title("Marker"));
     }
 }

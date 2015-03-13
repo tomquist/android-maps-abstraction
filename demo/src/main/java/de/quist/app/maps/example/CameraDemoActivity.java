@@ -41,14 +41,14 @@ public class CameraDemoActivity extends FragmentActivity implements OnMapReadyCa
     private static final int SCROLL_BY_PX = 100;
 
     public static final CameraPosition BONDI =
-            BuildConfig.MAP_BINDING.cameraPositionBuilder().target(BuildConfig.MAP_BINDING.latLng(-33.891614, 151.276417))
+            BuildConfig.MAP_BINDING.cameraPositionBuilder().target(BuildConfig.MAP_BINDING.newLatLng(-33.891614, 151.276417))
                     .zoom(15.5f)
                     .bearing(300)
                     .tilt(50)
                     .build();
 
     public static final CameraPosition SYDNEY =
-            BuildConfig.MAP_BINDING.cameraPositionBuilder().target(BuildConfig.MAP_BINDING.latLng(-33.87365, 151.20689))
+            BuildConfig.MAP_BINDING.cameraPositionBuilder().target(BuildConfig.MAP_BINDING.newLatLng(-33.87365, 151.20689))
                     .zoom(15.5f)
                     .bearing(0)
                     .tilt(25)
@@ -89,7 +89,7 @@ public class CameraDemoActivity extends FragmentActivity implements OnMapReadyCa
         mMap.getUiSettings().setZoomControlsEnabled(false);
 
         // Show Sydney
-        mMap.moveCamera(BuildConfig.MAP_BINDING.cameraUpdateFactory().newLatLngZoom(BuildConfig.MAP_BINDING.latLng(-33.87365, 151.20689), 10));
+        mMap.moveCamera(BuildConfig.MAP_BINDING.cameraUpdateFactory().newLatLngZoom(BuildConfig.MAP_BINDING.newLatLng(-33.87365, 151.20689), 10));
     }
 
     /**

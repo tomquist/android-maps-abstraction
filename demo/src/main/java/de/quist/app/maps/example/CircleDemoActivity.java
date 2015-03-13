@@ -43,7 +43,7 @@ import de.quist.app.maps.model.Marker;
  */
 public class CircleDemoActivity extends FragmentActivity implements OnSeekBarChangeListener,
         OnMarkerDragListener, OnMapLongClickListener, OnMapReadyCallback {
-    private static final LatLng SYDNEY = BuildConfig.MAP_BINDING.latLng(-33.87365, 151.20689);
+    private static final LatLng SYDNEY = BuildConfig.MAP_BINDING.newLatLng(-33.87365, 151.20689);
     private static final double DEFAULT_RADIUS = 1000000;
     public static final double RADIUS_OF_EARTH_METERS = 6371009;
 
@@ -68,15 +68,15 @@ public class CircleDemoActivity extends FragmentActivity implements OnSeekBarCha
         private double radius;
         public DraggableCircle(LatLng center, double radius) {
             this.radius = radius;
-            centerMarker = mMap.addMarker(BuildConfig.MAP_BINDING.markerOptions()
+            centerMarker = mMap.addMarker(BuildConfig.MAP_BINDING.newMarkerOptions()
                     .position(center)
                     .draggable(true));
-            radiusMarker = mMap.addMarker(BuildConfig.MAP_BINDING.markerOptions()
+            radiusMarker = mMap.addMarker(BuildConfig.MAP_BINDING.newMarkerOptions()
                     .position(toRadiusLatLng(center, radius))
                     .draggable(true)
                     .icon(BuildConfig.MAP_BINDING.bitmapDescriptorFactory().defaultMarker(
                             BitmapDescriptorFactory.HUE_AZURE)));
-            circle = mMap.addCircle(BuildConfig.MAP_BINDING.circleOptions()
+            circle = mMap.addCircle(BuildConfig.MAP_BINDING.newCircleOptions()
                     .center(center)
                     .radius(radius)
                     .strokeWidth(mWidthBar.getProgress())
@@ -85,15 +85,15 @@ public class CircleDemoActivity extends FragmentActivity implements OnSeekBarCha
         }
         public DraggableCircle(LatLng center, LatLng radiusLatLng) {
             this.radius = toRadiusMeters(center, radiusLatLng);
-            centerMarker = mMap.addMarker(BuildConfig.MAP_BINDING.markerOptions()
+            centerMarker = mMap.addMarker(BuildConfig.MAP_BINDING.newMarkerOptions()
                     .position(center)
                     .draggable(true));
-            radiusMarker = mMap.addMarker(BuildConfig.MAP_BINDING.markerOptions()
+            radiusMarker = mMap.addMarker(BuildConfig.MAP_BINDING.newMarkerOptions()
                     .position(radiusLatLng)
                     .draggable(true)
                     .icon(BuildConfig.MAP_BINDING.bitmapDescriptorFactory().defaultMarker(
                             BitmapDescriptorFactory.HUE_AZURE)));
-            circle = mMap.addCircle(BuildConfig.MAP_BINDING.circleOptions()
+            circle = mMap.addCircle(BuildConfig.MAP_BINDING.newCircleOptions()
                     .center(center)
                     .radius(radius)
                     .strokeWidth(mWidthBar.getProgress())
@@ -124,7 +124,7 @@ public class CircleDemoActivity extends FragmentActivity implements OnSeekBarCha
     private static LatLng toRadiusLatLng(LatLng center, double radius) {
         double radiusAngle = Math.toDegrees(radius / RADIUS_OF_EARTH_METERS) /
                 Math.cos(Math.toRadians(center.latitude()));
-        return BuildConfig.MAP_BINDING.latLng(center.latitude(), center.longitude() + radiusAngle);
+        return BuildConfig.MAP_BINDING.newLatLng(center.latitude(), center.longitude() + radiusAngle);
     }
 
     private static double toRadiusMeters(LatLng center, LatLng radius) {

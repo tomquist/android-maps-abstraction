@@ -45,10 +45,10 @@ public class VisibleRegionDemoActivity extends FragmentActivity implements OnMap
      */
     private Map mMap;
 
-    private static final LatLng SOH = BuildConfig.MAP_BINDING.latLng(-33.85704, 151.21522);
-    private static final LatLng SFO = BuildConfig.MAP_BINDING.latLng(37.614631, -122.385153);
-    private static final LatLngBounds AUS = BuildConfig.MAP_BINDING.latLngBounds(
-            BuildConfig.MAP_BINDING.latLng(-44, 113), BuildConfig.MAP_BINDING.latLng(-10, 154));
+    private static final LatLng SOH = BuildConfig.MAP_BINDING.newLatLng(-33.85704, 151.21522);
+    private static final LatLng SFO = BuildConfig.MAP_BINDING.newLatLng(37.614631, -122.385153);
+    private static final LatLngBounds AUS = BuildConfig.MAP_BINDING.newLatLngBounds(
+            BuildConfig.MAP_BINDING.newLatLng(-44, 113), BuildConfig.MAP_BINDING.newLatLng(-10, 154));
 
     private TextView mMessageView;
 
@@ -78,7 +78,7 @@ public class VisibleRegionDemoActivity extends FragmentActivity implements OnMap
         mMap.setPadding(currentLeft, currentTop, currentRight, currentBottom);
         mMap.moveCamera(BuildConfig.MAP_BINDING.cameraUpdateFactory().newLatLngZoom(SFO, 18));
         // Add a marker to the Opera House
-        mMap.addMarker(BuildConfig.MAP_BINDING.markerOptions().position(SOH).title("Sydney Opera House"));
+        mMap.addMarker(BuildConfig.MAP_BINDING.newMarkerOptions().position(SOH).title("Sydney Opera House"));
         // Add a camera change listener.
         mMap.setOnCameraChangeListener(new OnCameraChangeListener() {
             @Override

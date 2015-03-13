@@ -50,7 +50,7 @@ public class IndoorDemoActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onMapReady(Map map) {
         mMap = map;
-        mMap.moveCamera(BuildConfig.MAP_BINDING.cameraUpdateFactory().newLatLngZoom(BuildConfig.MAP_BINDING.latLng(37.614631, -122.385153), 18));
+        mMap.moveCamera(BuildConfig.MAP_BINDING.cameraUpdateFactory().newLatLngZoom(BuildConfig.MAP_BINDING.newLatLng(37.614631, -122.385153), 18));
     }
 
     /**

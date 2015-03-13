@@ -38,7 +38,7 @@ import de.quist.app.maps.model.PolygonOptions;
 public class PolygonDemoActivity extends FragmentActivity
         implements OnSeekBarChangeListener, OnMapReadyCallback {
 
-    private static final LatLng SYDNEY = BuildConfig.MAP_BINDING.latLng(-33.87365, 151.20689);
+    private static final LatLng SYDNEY = BuildConfig.MAP_BINDING.newLatLng(-33.87365, 151.20689);
 
     private static final int WIDTH_MAX = 50;
     private static final int HUE_MAX = 360;
@@ -79,16 +79,16 @@ public class PolygonDemoActivity extends FragmentActivity
         map.setContentDescription("Google Map with polygons.");
 
         // Create a rectangle with two rectangular holes.
-        map.addPolygon(BuildConfig.MAP_BINDING.polygonOptions()
-                .addAll(createRectangle(BuildConfig.MAP_BINDING.latLng(-20, 130), 5, 5))
-                .addHole(createRectangle(BuildConfig.MAP_BINDING.latLng(-22, 128), 1, 1))
-                .addHole(createRectangle(BuildConfig.MAP_BINDING.latLng(-18, 133), 0.5, 1.5))
+        map.addPolygon(BuildConfig.MAP_BINDING.newPolygonOptions()
+                .addAll(createRectangle(BuildConfig.MAP_BINDING.newLatLng(-20, 130), 5, 5))
+                .addHole(createRectangle(BuildConfig.MAP_BINDING.newLatLng(-22, 128), 1, 1))
+                .addHole(createRectangle(BuildConfig.MAP_BINDING.newLatLng(-18, 133), 0.5, 1.5))
                 .fillColor(Color.CYAN)
                 .strokeColor(Color.BLUE)
                 .strokeWidth(5));
 
         // Create a rectangle centered at Sydney.
-        PolygonOptions options = BuildConfig.MAP_BINDING.polygonOptions().addAll(createRectangle(SYDNEY, 5, 8));
+        PolygonOptions options = BuildConfig.MAP_BINDING.newPolygonOptions().addAll(createRectangle(SYDNEY, 5, 8));
 
         int fillColor = Color.HSVToColor(
                 mAlphaBar.getProgress(), new float[] {mColorBar.getProgress(), 1, 1});
@@ -109,11 +109,11 @@ public class PolygonDemoActivity extends FragmentActivity
      * Creates a List of LatLngs that form a rectangle with the given dimensions.
      */
     private List<LatLng> createRectangle(LatLng center, double halfWidth, double halfHeight) {
-        return Arrays.asList(BuildConfig.MAP_BINDING.latLng(center.latitude() - halfHeight, center.longitude() - halfWidth),
-                BuildConfig.MAP_BINDING.latLng(center.latitude() - halfHeight, center.longitude() + halfWidth),
-                BuildConfig.MAP_BINDING.latLng(center.latitude() + halfHeight, center.longitude() + halfWidth),
-                BuildConfig.MAP_BINDING.latLng(center.latitude() + halfHeight, center.longitude() - halfWidth),
-                BuildConfig.MAP_BINDING.latLng(center.latitude() - halfHeight, center.longitude() - halfWidth));
+        return Arrays.asList(BuildConfig.MAP_BINDING.newLatLng(center.latitude() - halfHeight, center.longitude() - halfWidth),
+                BuildConfig.MAP_BINDING.newLatLng(center.latitude() - halfHeight, center.longitude() + halfWidth),
+                BuildConfig.MAP_BINDING.newLatLng(center.latitude() + halfHeight, center.longitude() + halfWidth),
+                BuildConfig.MAP_BINDING.newLatLng(center.latitude() + halfHeight, center.longitude() - halfWidth),
+                BuildConfig.MAP_BINDING.newLatLng(center.latitude() - halfHeight, center.longitude() - halfWidth));
     }
 
     @Override

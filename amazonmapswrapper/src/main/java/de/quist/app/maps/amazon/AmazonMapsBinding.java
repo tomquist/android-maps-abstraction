@@ -29,7 +29,7 @@ public class AmazonMapsBinding implements MapsBinding {
     }
 
     @Override
-    public de.quist.app.maps.model.CameraPosition cameraPosition(de.quist.app.maps.model.LatLng target, float zoom, float tilt, float bearing) {
+    public de.quist.app.maps.model.CameraPosition newCameraPosition(de.quist.app.maps.model.LatLng target, float zoom, float tilt, float bearing) {
         return de.quist.app.maps.amazon.CameraPosition.MAPPER.wrap(new com.amazon.geo.mapsv2.model.CameraPosition(de.quist.app.maps.amazon.LatLng.MAPPER.unwrap(target), zoom, tilt, bearing));
     }
 
@@ -49,22 +49,22 @@ public class AmazonMapsBinding implements MapsBinding {
     }
 
     @Override
-    public de.quist.app.maps.model.CircleOptions circleOptions() {
+    public de.quist.app.maps.model.CircleOptions newCircleOptions() {
         return de.quist.app.maps.amazon.CircleOptions.MAPPER.wrap(new com.amazon.geo.mapsv2.model.CircleOptions());
     }
 
     @Override
-    public de.quist.app.maps.model.GroundOverlayOptions groundOverlayOptions() {
+    public de.quist.app.maps.model.GroundOverlayOptions newGroundOverlayOptions() {
         return de.quist.app.maps.amazon.GroundOverlayOptions.MAPPER.wrap(new com.amazon.geo.mapsv2.model.GroundOverlayOptions());
     }
 
     @Override
-    public de.quist.app.maps.model.LatLng latLng(double latitude, double longitude) {
+    public de.quist.app.maps.model.LatLng newLatLng(double latitude, double longitude) {
         return de.quist.app.maps.amazon.LatLng.MAPPER.wrap(new com.amazon.geo.mapsv2.model.LatLng(latitude, longitude));
     }
 
     @Override
-    public de.quist.app.maps.model.LatLngBounds latLngBounds(de.quist.app.maps.model.LatLng southwest, de.quist.app.maps.model.LatLng northeast) {
+    public de.quist.app.maps.model.LatLngBounds newLatLngBounds(de.quist.app.maps.model.LatLng southwest, de.quist.app.maps.model.LatLng northeast) {
         return de.quist.app.maps.amazon.LatLngBounds.MAPPER.wrap(new com.amazon.geo.mapsv2.model.LatLngBounds(de.quist.app.maps.amazon.LatLng.MAPPER.unwrap(southwest), de.quist.app.maps.amazon.LatLng.MAPPER.unwrap(northeast)));
     }
 
@@ -74,27 +74,27 @@ public class AmazonMapsBinding implements MapsBinding {
     }
 
     @Override
-    public de.quist.app.maps.model.MarkerOptions markerOptions() {
+    public de.quist.app.maps.model.MarkerOptions newMarkerOptions() {
         return de.quist.app.maps.amazon.MarkerOptions.MAPPER.wrap(new com.amazon.geo.mapsv2.model.MarkerOptions());
     }
 
     @Override
-    public de.quist.app.maps.model.PolygonOptions polygonOptions() {
+    public de.quist.app.maps.model.PolygonOptions newPolygonOptions() {
         return de.quist.app.maps.amazon.PolygonOptions.MAPPER.wrap(new com.amazon.geo.mapsv2.model.PolygonOptions());
     }
 
     @Override
-    public de.quist.app.maps.model.PolylineOptions polylineOptions() {
+    public de.quist.app.maps.model.PolylineOptions newPolylineOptions() {
         return de.quist.app.maps.amazon.PolylineOptions.MAPPER.wrap(new com.amazon.geo.mapsv2.model.PolylineOptions());
     }
 
     @Override
-    public de.quist.app.maps.model.TileOverlayOptions tileOverlayOptions() {
+    public de.quist.app.maps.model.TileOverlayOptions newTileOverlayOptions() {
         return de.quist.app.maps.amazon.TileOverlayOptions.MAPPER.wrap(new com.amazon.geo.mapsv2.model.TileOverlayOptions());
     }
 
     @Override
-    public de.quist.app.maps.model.Tile tile(int width, int height, byte[] data) {
+    public de.quist.app.maps.model.Tile newTile(int width, int height, byte[] data) {
         return de.quist.app.maps.amazon.Tile.MAPPER.wrap(new com.amazon.geo.mapsv2.model.Tile(width, height, data));
     }
 
@@ -104,7 +104,7 @@ public class AmazonMapsBinding implements MapsBinding {
     }
 
     @Override
-    public de.quist.app.maps.model.VisibleRegion visibleRegion(de.quist.app.maps.model.LatLng nearLeft, de.quist.app.maps.model.LatLng nearRight, de.quist.app.maps.model.LatLng farLeft, de.quist.app.maps.model.LatLng farRight, de.quist.app.maps.model.LatLngBounds latLngBounds) {
+    public de.quist.app.maps.model.VisibleRegion newVisibleRegion(de.quist.app.maps.model.LatLng nearLeft, de.quist.app.maps.model.LatLng nearRight, de.quist.app.maps.model.LatLng farLeft, de.quist.app.maps.model.LatLng farRight, de.quist.app.maps.model.LatLngBounds latLngBounds) {
         return de.quist.app.maps.amazon.VisibleRegion.MAPPER.wrap(new com.amazon.geo.mapsv2.model.VisibleRegion(de.quist.app.maps.amazon.LatLng.MAPPER.unwrap(nearLeft), de.quist.app.maps.amazon.LatLng.MAPPER.unwrap(nearRight), de.quist.app.maps.amazon.LatLng.MAPPER.unwrap(farLeft), de.quist.app.maps.amazon.LatLng.MAPPER.unwrap(farRight), de.quist.app.maps.amazon.LatLngBounds.MAPPER.unwrap(latLngBounds)));
     }
 
@@ -162,7 +162,7 @@ public class AmazonMapsBinding implements MapsBinding {
     }
 
     @Override
-    public de.quist.app.maps.model.TileProvider urlTileProvider(int width, int height, final UrlTileProvider tileProvider) {
+    public de.quist.app.maps.model.TileProvider newUrlTileProvider(int width, int height, final UrlTileProvider tileProvider) {
         return de.quist.app.maps.amazon.TileProvider.MAPPER.wrap(new com.amazon.geo.mapsv2.model.UrlTileProvider(width, height) {
 
             @Override

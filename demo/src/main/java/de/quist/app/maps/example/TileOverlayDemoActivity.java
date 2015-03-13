@@ -57,10 +57,10 @@ public class TileOverlayDemoActivity extends FragmentActivity implements OnMapRe
     public void onMapReady(Map map) {
         map.setMapType(Map.MAP_TYPE_NONE);
 
-        TileProvider tileProvider = BuildConfig.MAP_BINDING.urlTileProvider(256, 256, new UrlTileProvider() {
+        TileProvider tileProvider = BuildConfig.MAP_BINDING.newUrlTileProvider(256, 256, new UrlTileProvider() {
             @Override
             public synchronized URL getTileUrl(int x, int y, int zoom) {
-                // The moon tile coordinate system is reversed.  This is not normal.
+                // The moon newTile coordinate system is reversed.  This is not normal.
                 int reversedY = (1 << zoom) - y - 1;
                 String s = String.format(Locale.US, MOON_MAP_URL_FORMAT, zoom, x, reversedY);
                 URL url = null;
@@ -73,7 +73,7 @@ public class TileOverlayDemoActivity extends FragmentActivity implements OnMapRe
             }
         });
 
-        mMoonTiles = map.addTileOverlay(BuildConfig.MAP_BINDING.tileOverlayOptions().tileProvider(tileProvider));
+        mMoonTiles = map.addTileOverlay(BuildConfig.MAP_BINDING.newTileOverlayOptions().tileProvider(tileProvider));
     }
 
     public void setFadeIn(View v) {
