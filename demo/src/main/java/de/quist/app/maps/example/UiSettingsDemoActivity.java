@@ -23,8 +23,8 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import de.quist.app.maps.Map;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 import de.quist.app.maps.UiSettings;
 
 /**
@@ -39,9 +39,9 @@ public class UiSettingsDemoActivity extends FragmentActivity implements OnMapRea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_settings_demo);
 
-        MapFragmentWrapper mapFragmentWrapper =
-                BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     /**

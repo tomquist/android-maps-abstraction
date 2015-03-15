@@ -2,14 +2,17 @@ package de.quist.app.maps.amazon;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 
+import com.amazon.geo.mapsv2.AmazonMapOptions;
 import com.amazon.geo.mapsv2.MapView;
 
 import java.net.URL;
 
-import de.quist.app.maps.*;
-import de.quist.app.maps.model.*;
+import de.quist.app.maps.MapsBinding;
+import de.quist.app.maps.model.UrlTileProvider;
 
 
 public class AmazonMapsBinding implements MapsBinding {
@@ -115,7 +118,9 @@ public class AmazonMapsBinding implements MapsBinding {
 
     @Override
     public de.quist.app.maps.MapFragmentWrapper mapFragmentWrapperFrom(Object fragment) {
-        if (fragment instanceof com.amazon.geo.mapsv2.SupportMapFragment) {
+        if (fragment instanceof de.quist.app.maps.MapFragmentWrapper) {
+            return (de.quist.app.maps.MapFragmentWrapper) fragment;
+        } else if (fragment instanceof com.amazon.geo.mapsv2.SupportMapFragment) {
             return SupportMapFragmentWrapper.MAPPER.wrap((com.amazon.geo.mapsv2.SupportMapFragment) fragment);
         } else if (fragment instanceof com.amazon.geo.mapsv2.MapFragment) {
             return de.quist.app.maps.amazon.MapFragmentWrapper.MAPPER.wrap((com.amazon.geo.mapsv2.MapFragment) fragment);
@@ -129,6 +134,11 @@ public class AmazonMapsBinding implements MapsBinding {
             return MapViewWrapper.MAPPER.wrap((com.amazon.geo.mapsv2.MapView) view);
         }
         return null;
+    }
+
+    @Override
+    public de.quist.app.maps.MapOptions newMapOptions() {
+        return MapOptions.MAPPER.wrap(new AmazonMapOptions());
     }
 
     @Override
@@ -171,4 +181,25 @@ public class AmazonMapsBinding implements MapsBinding {
             }
         });
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
+
+    public static final Parcelable.Creator<AmazonMapsBinding> CREATOR
+            = new Parcelable.Creator<AmazonMapsBinding>() {
+        public AmazonMapsBinding createFromParcel(Parcel in) {
+            return (AmazonMapsBinding) AmazonMapsBinding.INSTANCE;
+        }
+
+        public AmazonMapsBinding[] newArray(int size) {
+            return new AmazonMapsBinding[size];
+        }
+    };
 }

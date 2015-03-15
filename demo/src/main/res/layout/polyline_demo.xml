@@ -55,9 +55,11 @@
         android:id="@+id/widthSeekBar"/>
     </TableRow>
   </TableLayout>
-  <include
-    layout="@layout/basic_map"
+  <fragment
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     android:id="@+id/map"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent"
+    class="de.quist.app.maps.SupportMapFragment"
+    map:abs_binding="@string/maps_binding"/>
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.os.Parcel;
 
 import com.google.android.gms.maps.GoogleMapOptions;
 
+import de.quist.app.maps.MapsBinding;
 import de.quist.app.maps.model.CameraPosition;
 import de.quist.app.maps.utils.ParcelableWrapper;
 
@@ -199,6 +200,11 @@ class MapOptions extends ParcelableWrapper<GoogleMapOptions> implements de.quist
     @Override
     public Boolean getMapToolbarEnabled() {
         return original.getMapToolbarEnabled();
+    }
+
+    @Override
+    public MapsBinding getBinding() {
+        return GoogleMapsBinding.INSTANCE;
     }
 
     public static final Creator<MapOptions> CREATOR

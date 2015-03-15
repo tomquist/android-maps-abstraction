@@ -30,8 +30,8 @@ import java.util.List;
 import de.quist.app.maps.Map;
 import de.quist.app.maps.Map.OnMapLongClickListener;
 import de.quist.app.maps.Map.OnMarkerDragListener;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 import de.quist.app.maps.model.BitmapDescriptorFactory;
 import de.quist.app.maps.model.Circle;
 import de.quist.app.maps.model.LatLng;
@@ -151,8 +151,8 @@ public class CircleDemoActivity extends FragmentActivity implements OnSeekBarCha
         mWidthBar.setMax(WIDTH_MAX);
         mWidthBar.setProgress(10);
 
-        MapFragmentWrapper mapFragmentWrapper = BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -230,7 +230,7 @@ public class CircleDemoActivity extends FragmentActivity implements OnSeekBarCha
     @Override
     public void onMapLongClick(LatLng point) {
         // We know the center, let's place the outline at a point 3/4 along the view.
-        View view = (BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map)))
+        View view = getSupportFragmentManager().findFragmentById(R.id.map)
                 .getView();
         LatLng radiusLatLng = mMap.getProjection().fromScreenLocation(new Point(
             view.getHeight() * 3 / 4, view.getWidth() * 3 / 4));

@@ -9,11 +9,13 @@
     android:layout_weight="1"
     android:orientation="vertical">
     <fragment
+      xmlns:map="http://schemas.android.com/apk/res-auto"
       android:id="@+id/map"
       android:layout_width="match_parent"
       android:layout_weight="1"
       android:layout_height="0dp"
-      class="com.google.android.gms.maps.SupportMapFragment"/>
+      class="de.quist.app.maps.SupportMapFragment"
+      map:abs_binding="@string/maps_binding"/>
     <ImageView
       android:id="@+id/snapshot_holder"
       android:layout_width="match_parent"

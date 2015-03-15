@@ -53,5 +53,7 @@ public interface MapOptions extends Parcelable {
     public Boolean getLiteMode();
 
     public Boolean getMapToolbarEnabled();
+
+    public MapsBinding getBinding();
     
 }

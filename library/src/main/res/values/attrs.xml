@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AbsMapAttrs">
+        <attr name="abs_binding" format="string"/>
+        <attr name="abs_mapType" format="enum">
+            <enum name="abs_none" value="0"/>
+            <enum name="abs_normal" value="1"/>
+            <enum name="abs_satellite" value="2"/>
+            <enum name="abs_terrain" value="3"/>
+            <enum name="abs_hybrid" value="4"/>
+        </attr>
+        <attr name="abs_cameraBearing" format="float"/>
+        <attr name="abs_cameraTargetLat" format="float"/>
+        <attr name="abs_cameraTargetLng" format="float"/>
+        <attr name="abs_cameraTilt" format="float"/>
+        <attr name="abs_cameraZoom" format="float"/>
+        <attr name="abs_liteMode" format="boolean"/>
+        <attr name="abs_uiCompass" format="boolean"/>
+        <attr name="abs_uiRotateGestures" format="boolean"/>
+        <attr name="abs_uiScrollGestures" format="boolean"/>
+        <attr name="abs_uiTiltGestures" format="boolean"/>
+        <attr name="abs_uiZoomControls" format="boolean"/>
+        <attr name="abs_uiZoomGestures" format="boolean"/>
+        <attr name="abs_useViewLifecycle" format="boolean"/>
+        <attr name="abs_zOrderOnTop" format="boolean"/>
+        <attr name="abs_uiMapToolbar" format="boolean"/>
+    </declare-styleable>
+
+</resources>

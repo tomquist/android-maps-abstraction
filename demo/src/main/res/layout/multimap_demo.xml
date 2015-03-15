@@ -26,18 +26,26 @@
     android:layout_height="match_parent"
     android:layout_weight="0.5"
     android:orientation="horizontal">
-    <include
-      layout="@layout/multimap_map1"
+    <fragment
       android:id="@+id/map1"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_weight="0.5"/>
-    <include
-      layout="@layout/multimap_map1"
+      android:layout_weight="0.5"
+      class="de.quist.app.maps.SupportMapFragment"
+      map:abs_binding="@string/maps_binding"
+      map:abs_cameraTargetLat="40.72"
+      map:abs_cameraTargetLng="-74.00"
+      map:abs_cameraZoom="8"/>
+    <fragment
       android:id="@+id/map2"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_weight="0.5"/>
+      android:layout_weight="0.5"
+      class="de.quist.app.maps.SupportMapFragment"
+      map:abs_binding="@string/maps_binding"
+      map:abs_cameraTargetLat="51.51"
+      map:abs_cameraTargetLng="-0.12"
+      map:abs_cameraZoom="8"/>
   </LinearLayout>
   <LinearLayout
     android:id="@+id/map_container2"
@@ -45,17 +53,25 @@
     android:layout_height="match_parent"
     android:layout_weight="0.5"
     android:orientation="horizontal">
-    <include
-      layout="@layout/multimap_map1"
+    <fragment
       android:id="@+id/map3"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_weight="0.5" />
-    <include
-      layout="@layout/multimap_map2"
+      android:layout_weight="0.5"
+      class="de.quist.app.maps.SupportMapFragment"
+      map:abs_binding="@string/maps_binding"
+      map:abs_cameraTargetLat="48.85"
+      map:abs_cameraTargetLng="2.35"
+      map:abs_cameraZoom="8"/>
+    <fragment
       android:id="@+id/map4"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_weight="0.5" />
+      android:layout_weight="0.5"
+      class="de.quist.app.maps.SupportMapFragment"
+      map:abs_binding="@string/maps_binding"
+      map:abs_cameraTargetLat="35.69"
+      map:abs_cameraTargetLng="139.69"
+      map:abs_cameraZoom="8"/>
   </LinearLayout>
 </LinearLayout>

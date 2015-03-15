@@ -28,8 +28,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import de.quist.app.maps.Map;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 
 import static de.quist.app.maps.Map.MAP_TYPE_HYBRID;
 import static de.quist.app.maps.Map.MAP_TYPE_NONE;
@@ -67,9 +67,9 @@ public class LayersDemoActivity extends FragmentActivity
         mBuildingsCheckbox = (CheckBox) findViewById(R.id.buildings);
         mIndoorCheckbox = (CheckBox) findViewById(R.id.indoor);
 
-        MapFragmentWrapper mapFragmentWrapper =
-                BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override

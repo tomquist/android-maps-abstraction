@@ -23,8 +23,8 @@ import android.support.v4.app.FragmentActivity;
 import de.quist.app.maps.LocationSource;
 import de.quist.app.maps.Map;
 import de.quist.app.maps.Map.OnMapLongClickListener;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 import de.quist.app.maps.model.LatLng;
 
 /**
@@ -86,9 +86,9 @@ public class LocationSourceDemoActivity extends FragmentActivity implements OnMa
 
         mLocationSource = new LongPressLocationSource();
 
-        MapFragmentWrapper mapFragmentWrapper =
-                BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override

@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.quist.app.maps.Map;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 import de.quist.app.maps.model.BitmapDescriptor;
 import de.quist.app.maps.model.GroundOverlay;
 import de.quist.app.maps.model.LatLng;
@@ -57,9 +57,9 @@ public class GroundOverlayDemoActivity extends FragmentActivity
         mTransparencyBar.setMax(TRANSPARENCY_MAX);
         mTransparencyBar.setProgress(0);
 
-        MapFragmentWrapper mapFragmentWrapper =
-                BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override

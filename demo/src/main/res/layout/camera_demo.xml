@@ -149,9 +149,11 @@
         android:layout_weight="0.5"
         android:text="@string/go_to_bondi"/>
   </LinearLayout>
-  <include
-    layout="@layout/basic_map"
-    android:id="@+id/map"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+  <fragment
+      xmlns:map="http://schemas.android.com/apk/res-auto"
+      android:id="@+id/map"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      class="de.quist.app.maps.SupportMapFragment"
+      map:abs_binding="@string/maps_binding"/>
 </LinearLayout>

@@ -24,8 +24,8 @@ import de.quist.app.maps.Map;
 import de.quist.app.maps.Map.OnCameraChangeListener;
 import de.quist.app.maps.Map.OnMapClickListener;
 import de.quist.app.maps.Map.OnMapLongClickListener;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 import de.quist.app.maps.model.CameraPosition;
 import de.quist.app.maps.model.LatLng;
 
@@ -47,9 +47,9 @@ public class EventsDemoActivity extends FragmentActivity
         mTapTextView = (TextView) findViewById(R.id.tap_text);
         mCameraTextView = (TextView) findViewById(R.id.camera_text);
 
-        MapFragmentWrapper mapFragmentWrapper =
-                BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override

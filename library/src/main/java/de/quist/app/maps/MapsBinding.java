@@ -2,6 +2,7 @@ package de.quist.app.maps;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.os.Parcelable;
 import android.view.View;
 
 import de.quist.app.maps.model.BitmapDescriptorFactory;
@@ -19,7 +20,7 @@ import de.quist.app.maps.model.TileProvider;
 import de.quist.app.maps.model.UrlTileProvider;
 import de.quist.app.maps.model.VisibleRegion;
 
-public interface MapsBinding {
+public interface MapsBinding extends Parcelable {
 
     CameraUpdateFactory cameraUpdateFactory();
 
@@ -65,6 +66,8 @@ public interface MapsBinding {
     MapFragmentWrapper mapFragmentWrapperFrom(Object fragment);
 
     MapViewWrapper mapViewWrapperFrom(View view);
+
+    MapOptions newMapOptions();
 
     Fragment newMapFragmentInstance();
 

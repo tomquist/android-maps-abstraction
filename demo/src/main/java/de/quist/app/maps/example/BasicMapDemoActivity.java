@@ -20,8 +20,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import de.quist.app.maps.Map;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 
 /**
  * This shows how to create a simple activity with a map and a marker on the map.
@@ -33,8 +33,8 @@ public class BasicMapDemoActivity extends FragmentActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.basic_demo);
 
-        MapFragmentWrapper mapFragmentWrapper = BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     /**

@@ -47,8 +47,8 @@ import de.quist.app.maps.Map.InfoWindowAdapter;
 import de.quist.app.maps.Map.OnInfoWindowClickListener;
 import de.quist.app.maps.Map.OnMarkerClickListener;
 import de.quist.app.maps.Map.OnMarkerDragListener;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 import de.quist.app.maps.model.BitmapDescriptorFactory;
 import de.quist.app.maps.model.LatLng;
 import de.quist.app.maps.model.LatLngBounds;
@@ -192,9 +192,9 @@ public class MarkerDemoActivity extends FragmentActivity implements
           }
         });
 
-        MapFragmentWrapper mapFragmentWrapper =
-                BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override

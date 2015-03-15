@@ -25,8 +25,8 @@ import android.widget.Toast;
 
 import de.quist.app.maps.CameraUpdate;
 import de.quist.app.maps.Map;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 import de.quist.app.maps.model.CameraPosition;
 
 /**
@@ -71,8 +71,8 @@ public class CameraDemoActivity extends FragmentActivity implements OnMapReadyCa
 
         updateEnabledState();
 
-        MapFragmentWrapper mapFragmentWrapper = BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override

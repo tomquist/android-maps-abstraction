@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import de.quist.app.maps.Map;
 import de.quist.app.maps.Map.OnMapLoadedCallback;
 import de.quist.app.maps.Map.SnapshotReadyCallback;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 
 /**
  * This shows how to take a snapshot of the map.
@@ -33,9 +33,9 @@ public class SnapshotDemoActivity extends FragmentActivity implements OnMapReady
         setContentView(R.layout.snapshot_demo);
         mWaitForMapLoadCheckBox = (CheckBox) findViewById(R.id.wait_for_map_load);
 
-        MapFragmentWrapper mapFragmentWrapper =
-                BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override

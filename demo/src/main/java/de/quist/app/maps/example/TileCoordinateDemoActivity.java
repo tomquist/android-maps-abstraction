@@ -10,8 +10,8 @@ import android.support.v4.app.FragmentActivity;
 import java.io.ByteArrayOutputStream;
 
 import de.quist.app.maps.Map;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 import de.quist.app.maps.model.Tile;
 import de.quist.app.maps.model.TileProvider;
 
@@ -25,9 +25,9 @@ public class TileCoordinateDemoActivity extends FragmentActivity implements OnMa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tile_coordinate_demo);
 
-        MapFragmentWrapper mapFragmentWrapper =
-                BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override

@@ -26,8 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.quist.app.maps.Map;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 import de.quist.app.maps.model.LatLng;
 import de.quist.app.maps.model.Polygon;
 import de.quist.app.maps.model.PolygonOptions;
@@ -67,9 +67,9 @@ public class PolygonDemoActivity extends FragmentActivity
         mWidthBar.setMax(WIDTH_MAX);
         mWidthBar.setProgress(10);
 
-        MapFragmentWrapper mapFragmentWrapper =
-                BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override

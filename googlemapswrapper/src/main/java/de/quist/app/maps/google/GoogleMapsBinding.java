@@ -2,15 +2,18 @@ package de.quist.app.maps.google;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapView;
 
 import java.net.URL;
 
-import de.quist.app.maps.*;
-import de.quist.app.maps.model.UrlTileProvider;
+import de.quist.app.maps.MapsBinding;
 import de.quist.app.maps.model.TileProvider;
+import de.quist.app.maps.model.UrlTileProvider;
 
 
 public class GoogleMapsBinding implements MapsBinding {
@@ -116,7 +119,9 @@ public class GoogleMapsBinding implements MapsBinding {
 
     @Override
     public de.quist.app.maps.MapFragmentWrapper mapFragmentWrapperFrom(Object fragment) {
-        if (fragment instanceof com.google.android.gms.maps.SupportMapFragment) {
+        if (fragment instanceof de.quist.app.maps.MapFragmentWrapper) {
+            return (de.quist.app.maps.MapFragmentWrapper) fragment;
+        } else if (fragment instanceof com.google.android.gms.maps.SupportMapFragment) {
             return SupportMapFragmentWrapper.MAPPER.wrap((com.google.android.gms.maps.SupportMapFragment) fragment);
         } else if (fragment instanceof com.google.android.gms.maps.MapFragment) {
             return MapFragmentWrapper.MAPPER.wrap((com.google.android.gms.maps.MapFragment) fragment);
@@ -130,6 +135,11 @@ public class GoogleMapsBinding implements MapsBinding {
             return MapViewWrapper.MAPPER.wrap((com.google.android.gms.maps.MapView) view);
         }
         return null;
+    }
+
+    @Override
+    public de.quist.app.maps.MapOptions newMapOptions() {
+        return MapOptions.MAPPER.wrap(new GoogleMapOptions());
     }
 
     @Override
@@ -172,4 +182,25 @@ public class GoogleMapsBinding implements MapsBinding {
             }
         });
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
+
+    public static final Parcelable.Creator<GoogleMapsBinding> CREATOR
+            = new Parcelable.Creator<GoogleMapsBinding>() {
+        public GoogleMapsBinding createFromParcel(Parcel in) {
+            return (GoogleMapsBinding) GoogleMapsBinding.INSTANCE;
+        }
+
+        public GoogleMapsBinding[] newArray(int size) {
+            return new GoogleMapsBinding[size];
+        }
+    };
 }

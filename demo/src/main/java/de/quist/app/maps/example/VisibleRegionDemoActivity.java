@@ -29,8 +29,8 @@ import android.widget.Toast;
 
 import de.quist.app.maps.Map;
 import de.quist.app.maps.Map.OnCameraChangeListener;
-import de.quist.app.maps.MapFragmentWrapper;
 import de.quist.app.maps.OnMapReadyCallback;
+import de.quist.app.maps.SupportMapFragment;
 import de.quist.app.maps.model.CameraPosition;
 import de.quist.app.maps.model.LatLng;
 import de.quist.app.maps.model.LatLngBounds;
@@ -64,9 +64,9 @@ public class VisibleRegionDemoActivity extends FragmentActivity implements OnMap
         setContentView(R.layout.visible_region_demo);
         mMessageView = (TextView) findViewById(R.id.message_text);
 
-        MapFragmentWrapper mapFragmentWrapper =
-                BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragmentWrapper.getMapAsync(this);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -133,8 +133,7 @@ public class VisibleRegionDemoActivity extends FragmentActivity implements OnMap
             return;
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
-        View mapView = BuildConfig.MAP_BINDING.mapFragmentWrapperFrom(
-                fragmentManager.findFragmentById(R.id.map)).getView();
+        View mapView = fragmentManager.findFragmentById(R.id.map).getView();
         int left = 150;
         int top = 0;
         int right = mapView.getWidth() / 3;

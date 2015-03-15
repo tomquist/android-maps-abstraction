@@ -14,11 +14,10 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<merge>
-    <include
-      xmlns:android="http://schemas.android.com/apk/res/android"
-      layout="@layout/basic_map"
-      android:id="@+id/map"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
-</merge>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/map"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    class="de.quist.app.maps.SupportMapFragment"
+    map:abs_binding="@string/maps_binding"/>

@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.amazon.geo.mapsv2.AmazonMapOptions;
 
+import de.quist.app.maps.MapsBinding;
 import de.quist.app.maps.model.CameraPosition;
 import de.quist.app.maps.utils.ParcelableWrapper;
 
@@ -200,6 +201,11 @@ class MapOptions extends ParcelableWrapper<AmazonMapOptions> implements de.quist
     @Override
     public Boolean getMapToolbarEnabled() {
         return original.getMapToolbarEnabled();
+    }
+
+    @Override
+    public MapsBinding getBinding() {
+        return AmazonMapsBinding.INSTANCE;
     }
 
     public static final Parcelable.Creator<MapOptions> CREATOR

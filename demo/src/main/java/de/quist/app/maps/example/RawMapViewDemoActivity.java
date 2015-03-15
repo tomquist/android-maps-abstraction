@@ -20,7 +20,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import de.quist.app.maps.Map;
-import de.quist.app.maps.MapViewWrapper;
+import de.quist.app.maps.MapView;
 import de.quist.app.maps.OnMapReadyCallback;
 
 /**
@@ -29,14 +29,14 @@ import de.quist.app.maps.OnMapReadyCallback;
  */
 public class RawMapViewDemoActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private MapViewWrapper mMapView;
+    private MapView mMapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.raw_mapview_demo);
 
-        mMapView = BuildConfig.MAP_BINDING.mapViewWrapperFrom(findViewById(R.id.map));
+        mMapView = (MapView) findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
 
         mMapView.getMapAsync(this);
