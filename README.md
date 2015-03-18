@@ -12,8 +12,8 @@ There are two approaches for integrating maps libraries:
 Add the following to your Gradle build file
 
 	dependencies {
-	    compile 'de.quist.app.maps:google-maps-abstraction:1.0+'
-	    compile 'de.quist.app.maps:amazon-maps-abstraction:1.0+'
+	    compile 'de.quist.app.maps:google-maps-wrapper:1.0+'
+	    compile 'de.quist.app.maps:amazon-maps-wrapper:1.0+'
 	}
 
 Now you have to decide on runtime which library to use. This is typically done in an early stage, e.g. in your Application subclass. Depending on which library is available, either use ``de.quist.app.maps.google.GoogleMapBinding.INSTANCE`` (for Google Maps Library) or ``de.quist.app.maps.amazon.AmazonMapBinding.INSTANCE`` (for Amazon Maps Library) for creating maps objects.
@@ -37,8 +37,8 @@ This is the preferred approach and is implemented in the demo project. Create tw
 	}
 	
 	dependencies {
-	    playCompile 'de.quist.app.maps:google-maps-abstraction:1.0+'
-	    amazonCompile 'de.quist.app.maps:amazon-maps-abstraction:1.0+'
+	    playCompile 'de.quist.app.maps:google-maps-wrapper:1.0+'
+	    amazonCompile 'de.quist.app.maps:amazon-maps-wrapper:1.0+'
 	}
 
 

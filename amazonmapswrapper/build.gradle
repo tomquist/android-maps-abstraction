@@ -2,8 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-archivesBaseName = 'amazon-maps-abstraction'
-group = 'de.quist.apps.maps'
+project.archivesBaseName = 'amazon-maps-binding'
 
 
 android {
@@ -62,16 +61,17 @@ uploadArchives {
             }
 
             modifyPom(addFilter('aar') { artifact, file ->
-                artifact.name == 'amazon-maps-wrapper'
+                artifact.name == 'amazon-maps-binding'
             })
 
             modifyPom(addFilter('apklib') { artifact, file ->
-                artifact.name == 'amazon-maps-wrapper-apklib'
+                artifact.name == 'amazon-maps-binding-apklib'
             })
 
             // There's no official apklib for the support library services, so we
             // can't really maintain that dependency for the apklib packaging.
             pom('apklib').whenConfigured { pom ->
+                println pom.dependencies
                 pom.dependencies = []
             }
         }
@@ -104,5 +104,13 @@ def modifyPom(pom) {
                 name 'Tom Quist'
             }
         }
+    }
+
+    pom.withXml {
+        def dependenciesNode = asNode().appendNode('dependencies')
+        def dependencyNode = dependenciesNode.appendNode('dependency')
+        dependencyNode.appendNode('groupId', project.group)
+        dependencyNode.appendNode('artifactId', 'android-maps-abstraction')
+        dependencyNode.appendNode('version', project.version)
     }
 }

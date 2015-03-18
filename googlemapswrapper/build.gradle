@@ -2,8 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-archivesBaseName = 'google-maps-abstraction'
-group = 'de.quist.apps.maps'
+project.archivesBaseName = 'google-maps-binding'
 
 
 android {
@@ -62,11 +61,11 @@ uploadArchives {
             }
 
             modifyPom(addFilter('aar') { artifact, file ->
-                artifact.name == 'google-maps-wrapper'
+                artifact.name == 'google-maps-binding'
             })
 
             modifyPom(addFilter('apklib') { artifact, file ->
-                artifact.name == 'google-maps-wrapper-apklib'
+                artifact.name == 'google-maps-binding-apklib'
             })
 
             // There's no official apklib for the support library services, so we
@@ -104,5 +103,13 @@ def modifyPom(pom) {
                 name 'Tom Quist'
             }
         }
+    }
+
+    pom.withXml {
+        def dependenciesNode = asNode().appendNode('dependencies')
+        def dependencyNode = dependenciesNode.appendNode('dependency')
+        dependencyNode.appendNode('groupId', project.group)
+        dependencyNode.appendNode('artifactId', 'android-maps-abstraction')
+        dependencyNode.appendNode('version', project.version)
     }
 }
