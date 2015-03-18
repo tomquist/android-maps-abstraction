@@ -1,0 +1,84 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.quist.app.maps.example">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/demo_title"
+        android:hardwareAccelerated="true">
+
+        <activity android:name="de.quist.app.maps.example.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.quist.app.maps.example.BasicMapDemoActivity"
+            android:label="@string/basic_map_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.CameraDemoActivity"
+            android:label="@string/camera_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.CircleDemoActivity"
+            android:label="@string/circle_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.EventsDemoActivity"
+            android:label="@string/events_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.GroundOverlayDemoActivity"
+            android:label="@string/ground_overlay_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.IndoorDemoActivity"
+            android:label="@string/indoor_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.LayersDemoActivity"
+            android:label="@string/layers_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.LocationSourceDemoActivity"
+            android:label="@string/location_source_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.MapInPagerDemoActivity"
+            android:label="@string/map_in_pager_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.MarkerDemoActivity"
+            android:label="@string/marker_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.MultiMapDemoActivity"
+            android:label="@string/multi_map_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.OptionsDemoActivity"
+            android:label="@string/options_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.PolygonDemoActivity"
+            android:label="@string/polygon_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.PolylineDemoActivity"
+            android:label="@string/polyline_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.ProgrammaticDemoActivity"
+            android:label="@string/programmatic_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.RawMapViewDemoActivity"
+            android:label="@string/raw_map_view_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.SnapshotDemoActivity"
+            android:label="@string/snapshot_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.TileCoordinateDemoActivity"
+            android:label="@string/tile_coordinate_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.TileOverlayDemoActivity"
+            android:label="@string/tile_overlay_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.UiSettingsDemoActivity"
+            android:label="@string/ui_settings_demo_label"/>
+        <activity
+            android:name="de.quist.app.maps.example.VisibleRegionDemoActivity"
+            android:label="@string/visible_region_demo_label"/>
+    </application>
+
+
+</manifest>

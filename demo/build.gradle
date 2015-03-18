@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "de.quist.app.maps.example"
+        minSdkVersion 10
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    productFlavors {
+        play {
+            applicationId "de.quist.app.maps.example.play"
+            buildConfigField "de.quist.app.maps.MapsBinding", "MAP_BINDING", "de.quist.app.maps.google.GoogleMapsBinding.INSTANCE"
+        }
+        amazon {
+            applicationId "de.quist.app.maps.example.amazon"
+            minSdkVersion 15
+            buildConfigField "de.quist.app.maps.MapsBinding", "MAP_BINDING", "de.quist.app.maps.amazon.AmazonMapsBinding.INSTANCE"
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    playCompile project(':googlemapswrapper')
+    amazonCompile project(':amazonmapswrapper')
+}

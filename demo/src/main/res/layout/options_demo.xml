@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2012 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:map="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/map"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:layout_margin="5dp"
+  class="de.quist.app.maps.SupportMapFragment"
+  map:abs_binding="@string/maps_binding"
+  map:abs_cameraBearing="112.5"
+  map:abs_cameraTargetLat="-33.796923"
+  map:abs_cameraTargetLng="150.922433"
+  map:abs_cameraTilt="30"
+  map:abs_cameraZoom="13"
+  map:abs_mapType="abs_normal"
+  map:abs_uiCompass="false"
+  map:abs_uiRotateGestures="true"
+  map:abs_uiScrollGestures="false"
+  map:abs_uiTiltGestures="true"
+  map:abs_uiZoomControls="false"
+  map:abs_uiZoomGestures="true"/>

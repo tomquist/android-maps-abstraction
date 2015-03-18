@@ -1,0 +1,116 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+project.archivesBaseName = 'amazon-maps-binding'
+
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 21
+    }
+}
+
+dependencies {
+    compile 'com.amazon.android:amazon-maps-api:2.0'
+    compile project(':library')
+}
+
+task apklib(type: Zip) {
+    dependsOn 'packageReleaseJar'
+    appendix = extension = 'apklib'
+
+    from 'AndroidManifest.xml'
+    into('res') {
+        from 'res'
+    }
+    into('src') {
+        from 'src'
+    }
+}
+
+artifacts {
+    archives apklib
+}
+
+signing {
+    sign configurations.archives
+}
+
+if(!hasProperty("sonatypeUsername")){
+    ext.sonatypeUsername = ""
+}
+if(!hasProperty("sonatypePassword")){
+    ext.sonatypePassword = ""
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2') {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+            snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+
+            modifyPom(addFilter('aar') { artifact, file ->
+                artifact.name == 'amazon-maps-binding'
+            })
+
+            modifyPom(addFilter('apklib') { artifact, file ->
+                artifact.name == 'amazon-maps-binding-apklib'
+            })
+
+            // There's no official apklib for the support library services, so we
+            // can't really maintain that dependency for the apklib packaging.
+            pom('apklib').whenConfigured { pom ->
+                println pom.dependencies
+                pom.dependencies = []
+            }
+        }
+    }
+}
+
+def modifyPom(pom) {
+    pom.project {
+        name 'Wrapper for Amazon Maps Android API'
+        description ''
+        url 'https://github.com/tomquist/android-maps-abstraction'
+
+        scm {
+            url 'scm:git@github.com:tomquist/android-maps-abstraction.git'
+            connection 'scm:git@github.com:tomquist/android-maps-abstraction.git'
+            developerConnection 'scm:git@github.com:tomquist/android-maps-abstraction.git'
+        }
+
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                distribution 'repo'
+            }
+        }
+
+        developers {
+            developer {
+                id 'tomquist'
+                name 'Tom Quist'
+            }
+        }
+    }
+
+    pom.withXml {
+        def dependenciesNode = asNode().appendNode('dependencies')
+        def dependencyNode = dependenciesNode.appendNode('dependency')
+        dependencyNode.appendNode('groupId', project.group)
+        dependencyNode.appendNode('artifactId', 'android-maps-abstraction')
+        dependencyNode.appendNode('version', project.version)
+    }
+}
