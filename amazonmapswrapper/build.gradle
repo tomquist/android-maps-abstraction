@@ -80,8 +80,8 @@ uploadArchives {
 
 def modifyPom(pom) {
     pom.project {
-        name 'Wrapper for Amazon Maps Android API'
-        description ''
+        name 'Maps abstraction Amazon-Maps-Binding'
+        description 'Binding for Amazon-Maps Android API to use with android-maps-abstraction'
         url 'https://github.com/tomquist/android-maps-abstraction'
 
         scm {

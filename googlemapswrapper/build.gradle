@@ -79,8 +79,8 @@ uploadArchives {
 
 def modifyPom(pom) {
     pom.project {
-        name 'Wrapper for Google Maps Android API'
-        description ''
+        name 'Maps abstraction Google-Maps-Binding'
+        description 'Binding for Google-Maps Android API to use with android-maps-abstraction'
         url 'https://github.com/tomquist/android-maps-abstraction'
 
         scm {
